@@ -26,23 +26,23 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
         public static void main (string [] args) {
             try {
                 FFmpeg ffmpeg = new FFmpeg (
-                    "/home/ubuntu/Vídeos/TrumPVenezuela.mkv",
-                    "/home/ubuntu/Vídeos/TrumPVenezuela.avi",
+                    "/home/Vídeos/MarcusMiller.mkv",
+                    "/home/Vídeos/MarcusMiller.avi",
                     true,
                     "avi"
                 );
                 GLib.message (ffmpeg.get ());
 
                 FFmpeg ffmpeg1 = new FFmpeg ();
-                ffmpeg1.set_input ("/home/ubuntu/Vídeos/TrumPVenezuela.mkv");
-                ffmpeg1.set_output ("/home/ubuntu/Vídeos/TrumPVenezuela.avi");
+                ffmpeg1.set_input ("/home/Vídeos/MarcusMiller.mkv");
+                ffmpeg1.set_output ("/home/Vídeos/MarcusMiller.avi");
                 ffmpeg1.set_format ("avi");
                 ffmpeg1.set_override_output (true);
                 GLib.message (ffmpeg1.get ());
 
                 FFmpeg ffmpeg2 = new FFmpeg ()
-                .set_input ("/home/ubuntu/Vídeos/TrumPVenezuela.mkv")
-                .set_output ("/home/ubuntu/Vídeos/TrumPVenezuela.avi")
+                .set_input ("/home/Vídeos/MarcusMiller.mkv")
+                .set_output ("/home/Vídeos/MarcusMiller.avi")
                 .set_format ("avi")
                 .set_override_output (true);
                 GLib.message (ffmpeg2.get ());

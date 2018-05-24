@@ -54,8 +54,8 @@ You may already set some optional values when starting the class:
 
 ```vala
 	FFmpeg ffmpeg = new FFmpeg (
-        "/home/ubuntu/Vídeos/TrumPVenezuela.mkv",
-        "/home/ubuntu/Vídeos/TrumPVenezuela.avi"
+        "/home/Vídeos/MarcusMiller.mkv",
+        "/home/Vídeos/MarcusMiller.avi"
     );
 ```
 
@@ -63,8 +63,8 @@ You may already set some optional values when starting the class:
 
 ```vala
 	FFmpeg ffmpeg = new FFmpeg (
-        "/home/ubuntu/Vídeos/TrumPVenezuela.mkv",
-        "/home/ubuntu/Vídeos/TrumPVenezuela.avi",
+        "/home/Vídeos/MarcusMiller.mkv",
+        "/home/Vídeos/MarcusMiller.avi",
         true
     );
 ```
@@ -73,8 +73,8 @@ You may already set some optional values when starting the class:
 
 ```vala
 	FFmpeg ffmpeg = new FFmpeg (
-        "/home/ubuntu/Vídeos/TrumPVenezuela.mkv",
-        "/home/ubuntu/Vídeos/TrumPVenezuela.avi",
+        "/home/Vídeos/MarcusMiller.mkv",
+        "/home/Vídeos/MarcusMiller.avi",
         true,
         "avi"
     );
@@ -86,8 +86,8 @@ You can set the values in two other ways:
 
 ```vala
 	FFmpeg ffmpeg = new FFmpeg ();
-    ffmpeg.set_input ("/home/ubuntu/Vídeos/TrumPVenezuela.mkv");
-    ffmpeg.set_output ("/home/ubuntu/Vídeos/TrumPVenezuela.avi");
+    ffmpeg.set_input ("/home/Vídeos/MarcusMiller.mkv");
+    ffmpeg.set_output ("/home/Vídeos/MarcusMiller.avi");
     ffmpeg.set_format ("avi");
     ffmpeg.set_override_output (true);
 ```
@@ -97,11 +97,28 @@ You can set the values in two other ways:
 
 ```vala
 	FFmpeg ffmpeg = new FFmpeg ()
-    .set_input ("/home/ubuntu/Vídeos/TrumPVenezuela.mkv")
-    .set_output ("/home/ubuntu/Vídeos/TrumPVenezuela.avi")
+    .set_input ("/home/Vídeos/MarcusMiller.mkv")
+    .set_output ("/home/Vídeos/MarcusMiller.avi")
     .set_format ("avi")
     .set_override_output (true);
 ```
+
+Use the `get ()` function to get the generated command string:
+
+```vala
+    FFmpeg ffmpeg = new FFmpeg ();
+    ffmpeg.set_input ("/home/Vídeos/MarcusMiller.mkv");
+    ffmpeg.set_output ("/home/Vídeos/MarcusMiller.avi");
+    ffmpeg.set_format ("avi");
+    ffmpeg.set_override_output (true);
+
+    stdout.printf (ffmpeg.get ());
+```
+
+```sh
+$ ffmpeg -y -i /home/Vídeos/MarcusMiller.mkv -f avi /home/Vídeos/MarcusMiller.avi
+```
+
 
 ### Test
 
