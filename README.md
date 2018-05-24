@@ -4,12 +4,6 @@
 </div>
 
 <br>
-<br>
-<br>
-
-<div class="center">
-  <h1 align="center"> Informations </h1>
-</div>
 
 ### How this library works:
 
@@ -54,7 +48,7 @@ You may already set some optional values when starting the class:
  - Input
  - Output
  - Override Files
- - Force Format
+ - Force Format
 
 ##### Input & Output.
 
