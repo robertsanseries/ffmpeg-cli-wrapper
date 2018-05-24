@@ -27,8 +27,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
             try {
                 FFmpeg ffmpeg = new FFmpeg (
                     "/home/ubuntu/Vídeos/TrumPVenezuela.mkv",
-                    true,
                     "/home/ubuntu/Vídeos/TrumPVenezuela.avi",
+                    true,
                     "avi"
                 );
                 GLib.message (ffmpeg.get ());
@@ -36,8 +36,6 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
                 FFmpeg ffmpeg1 = new FFmpeg ();
                 ffmpeg1.set_input ("/home/ubuntu/Vídeos/TrumPVenezuela.mkv");
                 ffmpeg1.set_output ("/home/ubuntu/Vídeos/TrumPVenezuela.avi");
-                //ffmpeg1.set_acodec ();
-                //ffmpeg1.set_vcodec ("");
                 ffmpeg1.set_format ("avi");
                 ffmpeg1.set_override_output (true);
                 GLib.message (ffmpeg1.get ());
@@ -45,8 +43,6 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
                 FFmpeg ffmpeg2 = new FFmpeg ()
                 .set_input ("/home/ubuntu/Vídeos/TrumPVenezuela.mkv")
                 .set_output ("/home/ubuntu/Vídeos/TrumPVenezuela.avi")
-                //.set_acodec ()
-                //.set_vcodec ("")
                 .set_format ("avi")
                 .set_override_output (true);
                 GLib.message (ffmpeg2.get ());

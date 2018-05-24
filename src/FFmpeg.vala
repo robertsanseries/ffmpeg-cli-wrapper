@@ -40,19 +40,19 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         
 
         /* Constructor */
-        public FFmpeg (string? input = null, bool override_output = false, string? output = null, string? format = null) throws IllegalArgumentException {
+        public FFmpeg (string? input = null, string? output = null, bool override_output = false, string? format = null) throws IllegalArgumentException {
             GLib.message ("init class FFmpeg");
 
             if (StringUtil.is_not_empty (input)) {
                 this.set_input (input);
             }
 
-            if (override_output) {
-                set_override_output (override_output);
-            }
-
             if (StringUtil.is_not_empty (output)) {
                 set_output (output);
+            }
+
+            if (override_output) {
+                set_override_output (override_output);
             }
 
             if (StringUtil.is_not_empty (format)) {
@@ -131,34 +131,6 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             this.override_output = override_output;
             return this;
         }
-
-        // -r 30000/1001
-        //public FFmpeg frameRate (string frame_rate) 
-
-        // transpose=0
-        //public FFmpeg transpose (int)
-        
-        //public FFmpeg rotate (int)
-        
-        // pix_fmt','gray
-        //public FFmpeg grayScale (bool)
-        
-        //  Flip ( V or H )
-        //public FFmpeg flip (string)
-
-        // -vf hflip
-        //public FFmpeg hflip (string)
-
-        // -vf / vflip 
-        //public FFmpeg vflip (string)
-
-        //Quick methods
-        //public FFmpeg sameq  (bool)
-
-        // -ab 192k
-        //public FFmpeg bitrate (string)
-
-        //public FFmpeg resolution (string)
 
         public string get () throws IllegalArgumentException {
             string command = command_mount ();
