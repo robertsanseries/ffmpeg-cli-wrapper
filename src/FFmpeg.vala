@@ -1,21 +1,25 @@
 /*
-* Copyright (c) 2017 Robert San <robertsanseries@gmail.com>
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*/
+ * MIT License
+ *
+* Copyright (c) 2018 Robert San <robertsanseries@gmail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 using com.github.robertsanseries.FFmpegCliWrapper.Exceptions;
 using com.github.robertsanseries.FFmpegCliWrapper.Utils;
@@ -36,14 +40,30 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         
 
         /* Constructor */
-        public FFmpeg (string? input = null) {
+        public FFmpeg (string? input = null, bool override_output = false, string? output = null, string? format = null) throws IllegalArgumentException {
             GLib.message ("init class FFmpeg");
+
+            if (StringUtil.is_not_empty (input)) {
+                this.set_input (input);
+            }
+
+            if (override_output) {
+                set_override_output (override_output);
+            }
+
+            if (StringUtil.is_not_empty (output)) {
+                set_output (output);
+            }
+
+            if (StringUtil.is_not_empty (format)) {
+                set_format (format);
+            }
         }
 
         public FFmpeg set_input (string? input = null) throws IllegalArgumentException {
             GLib.message ("setting the input value");
             
-            if (input != null) {
+            if (StringUtil.is_not_empty (input)) {
                 this.input = input;                
             } else {
                 throw new IllegalArgumentException.MESSAGE ("Input value is null");
@@ -52,22 +72,27 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             return this;
         }
 
-        public FFmpeg set_output (string? output = null) throws IllegalArgumentException {
+        public FFmpeg set_output (string? output = null, string? format = null) throws IllegalArgumentException {
             GLib.message ("setting the output value");
 
-            if (output != null) {
+            if (StringUtil.is_not_empty (output)) {
                 this.output = output;
             } else {
                 throw new IllegalArgumentException.MESSAGE ("Output value is null");
             }
 
+            if(StringUtil.is_not_empty (format)) {
+                set_format (format);
+            }
+
             return this;
         }
 
+        // -acodec aac
         public FFmpeg set_acodec (string? acodec = null) throws IllegalArgumentException {
             GLib.message ("setting the value of the audio codec");
 
-            if (acodec != null) {
+            if (StringUtil.is_not_empty (acodec)) {
                 this.acodec = acodec;
             } else {
                 throw new IllegalArgumentException.MESSAGE ("Audio codec value is null");
@@ -76,10 +101,11 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             return this;
         }
 
+        //-vcodec h264
         public FFmpeg set_vcodec (string? vcodec = null) throws IllegalArgumentException {
             GLib.message ("setting the value of the video codec");
 
-            if (vcodec != null) {
+            if (StringUtil.is_not_empty (vcodec)) {
                 this.vcodec = vcodec;
             } else {
                 throw new IllegalArgumentException.MESSAGE ("Video codec value is null");
@@ -91,7 +117,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         public FFmpeg set_format (string? format = null) throws IllegalArgumentException {
             GLib.message ("forcing Output Format");
 
-            if (format != null) {
+            if (StringUtil.is_not_empty (format)) {
                 this.format = format;
             } else {
                 throw new IllegalArgumentException.MESSAGE ("Force Format value is null");
@@ -105,6 +131,34 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             this.override_output = override_output;
             return this;
         }
+
+        // -r 30000/1001
+        //public FFmpeg frameRate (string frame_rate) 
+
+        // transpose=0
+        //public FFmpeg transpose (int)
+        
+        //public FFmpeg rotate (int)
+        
+        // pix_fmt','gray
+        //public FFmpeg grayScale (bool)
+        
+        //  Flip ( V or H )
+        //public FFmpeg flip (string)
+
+        // -vf hflip
+        //public FFmpeg hflip (string)
+
+        // -vf / vflip 
+        //public FFmpeg vflip (string)
+
+        //Quick methods
+        //public FFmpeg sameq  (bool)
+
+        // -ab 192k
+        //public FFmpeg bitrate (string)
+
+        //public FFmpeg resolution (string)
 
         public string get () throws IllegalArgumentException {
             string command = command_mount ();
@@ -131,18 +185,18 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             
             array.add ("-i");
             
-            if (! StringUtil.is_empty(this.input)) {
+            if (StringUtil.is_not_empty (this.input)) {
                 array.add (this.input);
             } else {
                 throw new IllegalArgumentException.MESSAGE ("Input can not be null when mounting the command");
             }
             
-            if (! StringUtil.is_empty(this.format)) {
+            if (StringUtil.is_not_empty (this.format)) {
                 array.add ("-f");
                 array.add (this.format);
             }
             
-            if (! StringUtil.is_empty(this.output)) {
+            if (StringUtil.is_not_empty (this.output)) {
                 array.add (this.output);    
             }
 

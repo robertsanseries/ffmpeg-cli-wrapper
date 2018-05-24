@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Robert San <robertsanseries@gmail.com>
+* Copyright (c) 2018 Robert San <robertsanseries@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,31 @@
  * SOFTWARE.
  */
 
-namespace com.github.robertsanseries.FFmpegCliWrapper.Exceptions {
+using com.github.robertsanseries.FFmpegCliWrapper.Exceptions;
+using com.github.robertsanseries.FFmpegCliWrapper.Utils;
 
-    /**
-     * 
-     */
-    public errordomain DirectoryNotFoundException { 
-        MESSAGE
+namespace com.github.robertsanseries.FFmpegCliWrapper {
+
+    public class FFprobe {
+
+        /* Fields */
+        protected string input;
+        protected string output;
+        protected string acodec;
+        protected string vcodec;
+        protected string format;
+        protected bool override_output;   
+
+        /* Constructor */
+        public FFprobe (FFmpeg ffmpeg) {
+            GLib.message ("init class FFcommon");
+
+            this.input = ffmpeg.get_input ();
+        	this.output = ffmpeg.get_output ();
+        	this.acodec = ffmpeg.get_acodec ();
+        	this.vcodec = ffmpeg.get_vcodec ();
+        	this.format = ffmpeg.get_format ();
+        	this.override_output = ffmpeg.get_override_output ();
+        }
     }
 }
