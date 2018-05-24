@@ -1,0 +1,3 @@
+ valac src/FFmpeg.vala src/FFcommon.vala src/utils/StringUtil.vala test/FFmpegTest.vala src/exceptions/IllegalArgumentException.vala src/exceptions/IOException.vala -o ffmpeg-cli-wrapper
+
+./ffmpeg-cli-wrapper
