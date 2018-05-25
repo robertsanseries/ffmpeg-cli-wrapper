@@ -30,7 +30,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
         /* Fields */
         private const string FFMPEG = "ffmpeg";
-        private FFcommon ffcommon;
+        private FFcommon ffcommon = null;
         private string input;
         private string output;
         private string acodec;
@@ -134,10 +134,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
         public string get () throws IllegalArgumentException {
             string command = command_mount ();
-
-            if (this.ffcommon != null) {
-                this.build ();
-            }
+            this.build ();
 
             GLib.message ("returning the command that will be executed");
             return command;
@@ -180,7 +177,10 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         }
 
         private FFcommon build () {
-            this.ffcommon = new FFcommon (this);
+            if (this.ffcommon == null) {
+                this.ffcommon = new FFcommon (this);
+            }
+            
             return this.ffcommon;
         }        
 
