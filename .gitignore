@@ -1,4 +1,1 @@
-src/probe/*
-src/utils/FFmpegUtil.vala
-temp/*
 ffmpeg-cli-wrapper
