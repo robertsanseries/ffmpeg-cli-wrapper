@@ -25,30 +25,45 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
 
         public static void main (string [] args) {
             try {
-                FFmpeg ffmpeg = new FFmpeg (
+                Fmpeg ffmpeg = new FFmpeg (
                     "/home/Vídeos/MarcusMiller.mkv",
                     "/home/Vídeos/MarcusMiller.avi",
                     true,
                     "avi"
                 );
-                GLib.message (ffmpeg.get ());
+                GLib.message (ffmpeg.get_cmd ());
 
                 FFmpeg ffmpeg1 = new FFmpeg ();
                 ffmpeg1.set_input ("/home/Vídeos/MarcusMiller.mkv");
                 ffmpeg1.set_output ("/home/Vídeos/MarcusMiller.avi");
                 ffmpeg1.set_format ("avi");
                 ffmpeg1.set_override_output (true);
-                GLib.message (ffmpeg1.get ());
+                GLib.message (ffmpeg1.get_cmd ());*/
 
                 FFmpeg ffmpeg2 = new FFmpeg ()
-                .set_input ("/home/Vídeos/MarcusMiller.mkv")
-                .set_output ("/home/Vídeos/MarcusMiller.avi")
+                .set_input ("/home/robertsanseries/Documentos/doc.mp4")
+                .set_output ("/home/robertsanseries/Documentos/doc.avi")
                 .set_format ("avi")
                 .set_override_output (true);
-                GLib.message (ffmpeg2.get ());
 
+                FFconvert ffconvert = new FFconvert (ffmpeg2);
+                //ffconvert.convert.begin ();
+
+                ffconvert.convert.begin ((obj, async_res) => {
+                    try {
+                        GLib.Subprocess subprocess = ffconvert.convert.end (async_res);
+                    
+                        if (subprocess != null && subprocess.wait_check ()) {
+                            GLib.message ("Success");
+                        } else {
+                            GLib.warning ("Error");
+                        }
+                    } catch (Error e) {
+                        GLib.critical (e.message);        
+                    }
+                });
             } catch (Error e) {
-                GLib.message(e.message);
+                GLib.critical (e.message);
             }
         }
     }

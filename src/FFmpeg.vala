@@ -40,7 +40,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         
 
         /* Constructor */
-        public FFmpeg (string? input = null, string? output = null, bool override_output = false, string? format = null) throws IllegalArgumentException {
+        public FFmpeg (string? input = null, string? output = null, bool override_output = false, string? format = null) throws Error {
             GLib.message ("init class FFmpeg");
 
             if (StringUtil.is_not_empty (input)) {
@@ -60,7 +60,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             }
         }
 
-        public FFmpeg set_input (string? input = null) throws IllegalArgumentException {
+        public FFmpeg set_input (string? input = null) throws Error {
             GLib.message ("setting the input value");
             
             if (StringUtil.is_not_empty (input)) {
@@ -72,7 +72,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             return this;
         }
 
-        public FFmpeg set_output (string? output = null, string? format = null) throws IllegalArgumentException {
+        public FFmpeg set_output (string? output = null, string? format = null) throws Error {
             GLib.message ("setting the output value");
 
             if (StringUtil.is_not_empty (output)) {
@@ -89,7 +89,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         }
 
         // -acodec aac
-        public FFmpeg set_acodec (string? acodec = null) throws IllegalArgumentException {
+        public FFmpeg set_acodec (string? acodec = null) throws Error {
             GLib.message ("setting the value of the audio codec");
 
             if (StringUtil.is_not_empty (acodec)) {
@@ -102,7 +102,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         }
 
         //-vcodec h264
-        public FFmpeg set_vcodec (string? vcodec = null) throws IllegalArgumentException {
+        public FFmpeg set_vcodec (string? vcodec = null) throws Error {
             GLib.message ("setting the value of the video codec");
 
             if (StringUtil.is_not_empty (vcodec)) {
@@ -114,7 +114,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             return this;
         }
 
-        public FFmpeg set_format (string? format = null) throws IllegalArgumentException {
+        public FFmpeg set_format (string? format = null) throws Error {
             GLib.message ("forcing Output Format");
 
             if (StringUtil.is_not_empty (format)) {
@@ -126,54 +126,77 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             return this;
         }
 
-        public FFmpeg set_override_output (bool override_output = false) throws IllegalArgumentException {
+        public FFmpeg set_override_output (bool override_output = false) throws Error {
             GLib.message ("setting whether to overwrite the output files");
             this.override_output = override_output;
             return this;
         }
 
-        public string get () throws IllegalArgumentException {
-            string command = command_mount ();
+        public string[] get () throws Error {
+            GenericArray<string> array_str = command_mount ();
+            this.build ();
+
+            GLib.message ("returning the command that will be executed");
+            return array_str.data;
+        }
+
+        public string get_cmd () throws Error {
+            GenericArray<string> array_str = command_mount ();
+            string command = StringUtil.EMPTY;
+            
+            array_str.foreach ((str) => {
+                command += str + StringUtil.SPACE;
+            });
+
             this.build ();
 
             GLib.message ("returning the command that will be executed");
             return command;
         }
 
-        private string command_mount () throws IllegalArgumentException {
+       // public string convert () throws Error {
+            /*GenericArray<string> array = command_mount ();
+            this.build ();
+
+            FFconvert.convert_async.begin (array.data, (obj, async_res) => {
+                Subprocess subprocess = FFconvert.convert_async.end (async_res);
+                if (subprocess != null && subprocess.wait_check ()) {
+                    return true;
+                }
+            });*/
+
+            //return "false";
+       // }
+
+        private GenericArray<string> command_mount () throws Error {
             GLib.message ("setting up the command that will be executed");
 
-            GenericArray<string> array = new GenericArray<string> ();
-            string command = StringUtil.EMPTY;
+            GenericArray<string> array_str = new GenericArray<string> ();
 
-            array.add (FFMPEG);
+            array_str.add (FFMPEG);
 
             if (this.override_output) {
-                array.add ("-y");    
+                array_str.add ("-y");    
             }
             
-            array.add ("-i");
+            array_str.add ("-i");
             
             if (StringUtil.is_not_empty (this.input)) {
-                array.add (this.input);
+                array_str.add (this.input);
             } else {
                 throw new IllegalArgumentException.MESSAGE ("Input can not be null when mounting the command");
             }
             
             if (StringUtil.is_not_empty (this.format)) {
-                array.add ("-f");
-                array.add (this.format);
+                array_str.add ("-f");
+                array_str.add (this.format);
             }
             
             if (StringUtil.is_not_empty (this.output)) {
-                array.add (this.output);    
+                array_str.add (this.output);    
             }
 
-            array.foreach ((str) => {
-                command += str + StringUtil.SPACE;
-            });
-
-            return command;
+            return array_str;
         }
 
         private FFcommon build () {

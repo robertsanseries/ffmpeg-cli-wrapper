@@ -1,6 +1,4 @@
-#src/exceptions/*
 src/probe/*
 src/utils/FFmpegUtil.vala
 temp/*
-test/*
 ffmpeg-cli-wrapper
