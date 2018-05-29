@@ -38,7 +38,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
                 ffmpeg1.set_output ("/home/Vídeos/MarcusMiller.avi");
                 ffmpeg1.set_format ("avi");
                 ffmpeg1.set_override_output (true);
-                GLib.message (ffmpeg1.get_cmd ());*/
+                GLib.message (ffmpeg1.get_cmd ());
 
                 FFmpeg ffmpeg2 = new FFmpeg ()
                 .set_input ("/home/robertsanseries/Documentos/doc.mp4")
