@@ -1,0 +1,15 @@
+language: c
+
+before_install:
+    - sudo apt-add-repository --yes ppa:vala-team
+    - sudo apt-get update --quiet
+    - sudo apt-get install --yes valac libglib2.0-dev
+
+script:
+    - valac --ccode --debug valac --pkg gio-2.0 src/FFconvert.vala src/FFmpeg.vala src/FFcommon.vala src/exceptions/CodecNotEnabledException.vala src/exceptions/FileOrDirectoryNotFoundException.vala src/exceptions/NullReferenceException.vala src/utils/StringUtil.vala test/FFmpegTest.vala src/exceptions/IllegalArgumentException.vala src/exceptions/IOException.vala -o ffmpeg-cli-wrapper
+    - gcc $(pkg-config --cflags glib-2.0 gobject-2.0) -ftest-coverage -fprofile-arcs -o hello hello.c $(pkg-config --libs glib-2.0 gobject-2.0)
+    - ./ffmpeg-cli-wrapper
+    - gcov ffmpeg-cli-wrapper.vala
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
