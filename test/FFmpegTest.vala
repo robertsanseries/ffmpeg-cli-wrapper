@@ -25,7 +25,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
 
         public static void main (string [] args) {
             try {
-                Fmpeg ffmpeg = new FFmpeg (
+                FFmpeg ffmpeg = new FFmpeg (
                     "/home/Vídeos/MarcusMiller.mkv",
                     "/home/Vídeos/MarcusMiller.avi",
                     true,
