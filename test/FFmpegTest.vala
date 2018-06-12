@@ -47,8 +47,6 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
                 .set_override_output (true);
 
                 FFconvert ffconvert = new FFconvert (ffmpeg2);
-                //ffconvert.convert.begin ();
-
                 ffconvert.convert.begin ((obj, async_res) => {
                     try {
                         GLib.Subprocess subprocess = ffconvert.convert.end (async_res);

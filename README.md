@@ -110,7 +110,7 @@ FFmpeg ffmpeg = new FFmpeg ()
 .set_override_output (true);
 ```
 
-Use the `get ()` function to get the generated command string:
+Use the `get_cmd ()` function to get the generated command string:
 
 ```vala
 FFmpeg ffmpeg = new FFmpeg ();
@@ -119,7 +119,7 @@ ffmpeg.set_output ("/home/Vídeos/MarcusMiller.avi");
 ffmpeg.set_format ("avi");
 ffmpeg.set_override_output (true);
 
-stdout.printf (ffmpeg.get ());
+stdout.printf (ffmpeg.get_cmd ());
 ```
 
 ```sh
