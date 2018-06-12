@@ -11,7 +11,7 @@ This library requires a working FFMpeg install. You will need both FFMpeg and FF
 
 ### Installation
 
-You can download FFmpeg Cli Wrapper via Github [Here](https://github.com/olaferlandsen/ffmpeg-php-class/archive/master.zip)
+You can download FFmpeg Cli Wrapper via Github [Here](https://github.com/robertsanseries/ffmpeg-cli-wrapper/archive/master.zip)
 
 or If you want install via [Vanat](https://vanat.github.io). *recommended
 
