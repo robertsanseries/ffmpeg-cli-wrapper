@@ -1,5 +1,12 @@
 <div align="center">
     <h1>FFmpeg Cli Wrapper</h1>
+    <p align="center">
+        <img src="https://api.travis-ci.org/robertsanseries/ffmpeg-cli-wrapper.svg?branch=master">
+        <img src="https://img.shields.io/badge/vala-v0.36.12-yellow.svg">
+        <img src="https://img.shields.io/badge/stable-v0.1.0-blue.svg">
+        <img src="https://img.shields.io/github/license/mashape/apistatus.svg">
+</p>
+
   <h3 align="center">Vala wrapper around the FFmpeg command line tool</h3>
 </div>
 
