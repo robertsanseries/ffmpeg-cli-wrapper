@@ -34,13 +34,13 @@ You can find the complete documentation on our [Wiki](""). Or parse the source c
 To use the FFmpeg Cli Wrapper you need to add the namespace:
 
 ```vala
-	using com.github.robertsanseries.FFmpegCliWrapper;
+using com.github.robertsanseries.FFmpegCliWrapper;
 ```
 
 Starting the class:
 
 ```vala
-	FFmpeg ffmpeg = new FFmpeg ();
+FFmpeg ffmpeg = new FFmpeg ();
 ```
 
 You may already set some optional values when starting the class:
@@ -53,31 +53,31 @@ You may already set some optional values when starting the class:
 ##### Input & Output.
 
 ```vala
-	FFmpeg ffmpeg = new FFmpeg (
-        "/home/Vídeos/MarcusMiller.mkv",
-        "/home/Vídeos/MarcusMiller.avi"
-    );
+FFmpeg ffmpeg = new FFmpeg (
+    "/home/Vídeos/MarcusMiller.mkv",
+    "/home/Vídeos/MarcusMiller.avi"
+);
 ```
 
 ##### Input & Output & Override Files .
 
 ```vala
-	FFmpeg ffmpeg = new FFmpeg (
-        "/home/Vídeos/MarcusMiller.mkv",
-        "/home/Vídeos/MarcusMiller.avi",
-        true
-    );
+FFmpeg ffmpeg = new FFmpeg (
+    "/home/Vídeos/MarcusMiller.mkv",
+    "/home/Vídeos/MarcusMiller.avi",
+    true
+);
 ```
 
 ##### Input & Output & Override Files & Force Format.
 
 ```vala
-	FFmpeg ffmpeg = new FFmpeg (
-        "/home/Vídeos/MarcusMiller.mkv",
-        "/home/Vídeos/MarcusMiller.avi",
-        true,
-        "avi"
-    );
+FFmpeg ffmpeg = new FFmpeg (
+    "/home/Vídeos/MarcusMiller.mkv",
+    "/home/Vídeos/MarcusMiller.avi",
+    true,
+    "avi"
+);
 ```
 
 You can set the values in two other ways:
@@ -85,34 +85,34 @@ You can set the values in two other ways:
 ##### #1:
 
 ```vala
-	FFmpeg ffmpeg = new FFmpeg ();
-    ffmpeg.set_input ("/home/Vídeos/MarcusMiller.mkv");
-    ffmpeg.set_output ("/home/Vídeos/MarcusMiller.avi");
-    ffmpeg.set_format ("avi");
-    ffmpeg.set_override_output (true);
+FFmpeg ffmpeg = new FFmpeg ();
+ffmpeg.set_input ("/home/Vídeos/MarcusMiller.mkv");
+ffmpeg.set_output ("/home/Vídeos/MarcusMiller.avi");
+ffmpeg.set_format ("avi");
+ffmpeg.set_override_output (true);
 ```
 
 
 ##### #2:
 
 ```vala
-	FFmpeg ffmpeg = new FFmpeg ()
-    .set_input ("/home/Vídeos/MarcusMiller.mkv")
-    .set_output ("/home/Vídeos/MarcusMiller.avi")
-    .set_format ("avi")
-    .set_override_output (true);
+FFmpeg ffmpeg = new FFmpeg ()
+.set_input ("/home/Vídeos/MarcusMiller.mkv")
+.set_output ("/home/Vídeos/MarcusMiller.avi")
+.set_format ("avi")
+.set_override_output (true);
 ```
 
 Use the `get ()` function to get the generated command string:
 
 ```vala
-    FFmpeg ffmpeg = new FFmpeg ();
-    ffmpeg.set_input ("/home/Vídeos/MarcusMiller.mkv");
-    ffmpeg.set_output ("/home/Vídeos/MarcusMiller.avi");
-    ffmpeg.set_format ("avi");
-    ffmpeg.set_override_output (true);
+FFmpeg ffmpeg = new FFmpeg ();
+ffmpeg.set_input ("/home/Vídeos/MarcusMiller.mkv");
+ffmpeg.set_output ("/home/Vídeos/MarcusMiller.avi");
+ffmpeg.set_format ("avi");
+ffmpeg.set_override_output (true);
 
-    stdout.printf (ffmpeg.get ());
+stdout.printf (ffmpeg.get ());
 ```
 
 ```sh
@@ -125,13 +125,13 @@ $ ffmpeg -y -i /home/Vídeos/MarcusMiller.mkv -f avi /home/Vídeos/MarcusMiller.
 #### compile
 
 ```sh
-$	valac --pkg gio-2.0 src/FFconvert.vala src/FFmpeg.vala src/FFcommon.vala src/exceptions/CodecNotEnabledException.vala src/exceptions/FileOrDirectoryNotFoundException.vala src/exceptions/NullReferenceException.vala src/utils/StringUtil.vala test/FFmpegTest.vala src/exceptions/IllegalArgumentException.vala src/exceptions/IOException.vala -o ffmpeg-cli-wrapper
+$ valac --pkg gio-2.0 src/FFconvert.vala src/FFmpeg.vala src/FFcommon.vala src/exceptions/CodecNotEnabledException.vala src/exceptions/FileOrDirectoryNotFoundException.vala src/exceptions/NullReferenceException.vala src/utils/StringUtil.vala test/FFmpegTest.vala src/exceptions/IllegalArgumentException.vala src/exceptions/IOException.vala -o ffmpeg-cli-wrapper
 ```
 
 #### execute
 
 ```sh
-$	./ffmpeg-cli-wrapper
+$ ./ffmpeg-cli-wrapper
 ```
 
 ### License
