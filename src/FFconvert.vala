@@ -29,6 +29,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
     public class FFconvert {
 
         private FFmpeg ffmpeg;
+        public bool error;
+        public string msg_error;
         
         /* Constructor */
         public FFconvert (FFmpeg? ffmpeg = null) throws GLib.Error {
@@ -54,41 +56,50 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         public async GLib.Subprocess convert () throws GLib.Error {
             GLib.message ("convert");
 
-            if(this.ffmpeg != null) {
-                GLib.SubprocessLauncher launcher        = new GLib.SubprocessLauncher (GLib.SubprocessFlags.STDERR_PIPE);
-                GLib.Subprocess subprocess              = launcher.spawnv (this.ffmpeg.get ());
-                GLib.InputStream input_stream           = subprocess.get_stderr_pipe ();
-                GLib.CharsetConverter charset_converter = new GLib.CharsetConverter ("utf-8", "iso-8859-1");
-                GLib.ConverterInputStream costream      = new GLib.ConverterInputStream (input_stream, charset_converter);
-                GLib.DataInputStream data_input_stream  = new GLib.DataInputStream (costream);
-                data_input_stream.set_newline_type (GLib.DataStreamNewlineType.ANY);
-              
-                while (true) {
-                    string str_return = data_input_stream.read_line ();
-
-                    if (str_return == null) {
-                        break;
-                    } else {
-                       GLib.message(str_return);
-                    }
-                }
-
-                return subprocess;
-            } else {
+            if(this.ffmpeg == null) {
                 throw new NullReferenceException.MESSAGE ("Command value is null");
             }
+            
+            GLib.SubprocessLauncher launcher        = new GLib.SubprocessLauncher (GLib.SubprocessFlags.STDERR_PIPE);
+            GLib.Subprocess subprocess              = launcher.spawnv (this.ffmpeg.get ());
+            GLib.InputStream input_stream           = subprocess.get_stderr_pipe ();
+            GLib.CharsetConverter charset_converter = new GLib.CharsetConverter ("utf-8", "iso-8859-1");
+            GLib.ConverterInputStream costream      = new GLib.ConverterInputStream (input_stream, charset_converter);
+            GLib.DataInputStream data_input_stream  = new GLib.DataInputStream (costream);
+            data_input_stream.set_newline_type (GLib.DataStreamNewlineType.ANY);
+          
+            while (true) {
+                string str_return = data_input_stream.read_line_utf8 ();
+
+                if (str_return == null) {
+                    break; 
+                } else {
+                    GLib.message (str_return);
+                    process_line (str_return);
+               }
+            }
+
+            return subprocess;
         }
 
-        //private static void process_line (string str_return) throws IOException {
-           /* if (str_return.contains ("No such file or directory")) {
-                throw new FileOrDirectoryNotFoundException.MESSAGE ("No such file or directory");
+        private void process_line (string str_return) throws GLib.Error {
+            if (str_return.contains ("No such file or directory")) {
+                this.error = true;
+                this.msg_error = "No such file or directory";
+                throw new FileOrDirectoryNotFoundException.MESSAGE (this.msg_error);
             } else if (str_return.contains ("Invalid argument")) {
-                throw new IllegalArgumentException.MESSAGE ("Invalid argument");
+                this.error = true;
+                this.msg_error = "Invalid argument";
+                throw new IllegalArgumentException.MESSAGE (this.msg_error);
             } else if (str_return.contains ("Experimental codecs are not enabled")) {
-                throw new CodecNotEnabledException.MESSAGE ("Invalid argument");
+                this.error = true;
+                this.msg_error = "Experimental codecs are not enabled";
+                throw new CodecNotEnabledException.MESSAGE (this.msg_error);
             } else if (str_return.contains ("Invalid data found when processing input")) {
-                throw new IOException.MESSAGE ("Invalid data found when processing input");
-            }*/
-        //}
+                this.error = true;
+                this.msg_error = "Invalid data found when processing input";
+                throw new IOException.MESSAGE (this.msg_error);
+            }
+        }
     }
 }

@@ -154,20 +154,6 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             return command;
         }
 
-       // public string convert () throws Error {
-            /*GenericArray<string> array = command_mount ();
-            this.build ();
-
-            FFconvert.convert_async.begin (array.data, (obj, async_res) => {
-                Subprocess subprocess = FFconvert.convert_async.end (async_res);
-                if (subprocess != null && subprocess.wait_check ()) {
-                    return true;
-                }
-            });*/
-
-            //return "false";
-       // }
-
         private GenericArray<string> command_mount () throws Error {
             GLib.message ("setting up the command that will be executed");
 

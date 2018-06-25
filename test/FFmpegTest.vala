@@ -25,7 +25,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
 
         public static void main (string [] args) {
             try {
-                FFmpeg ffmpeg = new FFmpeg (
+                /*FFmpeg ffmpeg = new FFmpeg (
                     "/home/Vídeos/MarcusMiller.mkv",
                     "/home/Vídeos/MarcusMiller.avi",
                     true,
@@ -38,7 +38,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
                 ffmpeg1.set_output ("/home/Vídeos/MarcusMiller.avi");
                 ffmpeg1.set_format ("avi");
                 ffmpeg1.set_override_output (true);
-                GLib.message (ffmpeg1.get_cmd ());
+                GLib.message (ffmpeg1.get_cmd ());*/
 
                 FFmpeg ffmpeg2 = new FFmpeg ()
                 .set_input ("/home/robertsanseries/Documentos/doc.mp4")
@@ -47,19 +47,23 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
                 .set_override_output (true);
 
                 FFconvert ffconvert = new FFconvert (ffmpeg2);
+                GLib.MainLoop mainloop = new GLib.MainLoop();
                 ffconvert.convert.begin ((obj, async_res) => {
                     try {
                         GLib.Subprocess subprocess = ffconvert.convert.end (async_res);
-                    
+
                         if (subprocess != null && subprocess.wait_check ()) {
                             GLib.message ("Success");
                         } else {
-                            GLib.warning ("Error");
+                            GLib.message ("Error");
                         }
                     } catch (Error e) {
                         GLib.critical (e.message);        
                     }
+
+                     mainloop.quit();
                 });
+                mainloop.run();
             } catch (Error e) {
                 GLib.critical (e.message);
             }
