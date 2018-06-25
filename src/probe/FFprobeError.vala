@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-namespace com.github.robertsanseries.FFmpegCliWrapper {
+namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
 
     public class FFprobeError {
         

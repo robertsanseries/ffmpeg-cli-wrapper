@@ -21,6 +21,8 @@
  * SOFTWARE.
  */
 
+using com.github.robertsanseries.FFmpegCliWrapper.Probe;
+
 namespace com.github.robertsanseries.FFmpegCliWrapper {
 
     public class FFprobe {
