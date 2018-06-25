@@ -131,7 +131,7 @@ $ ffmpeg -y -i /home/Vídeos/MarcusMiller.mkv -f avi /home/Vídeos/MarcusMiller.
 #### compile
 
 ```sh
-$ valac --pkg gio-2.0 src/FFconvert.vala src/FFmpeg.vala src/FFcommon.vala src/exceptions/CodecNotEnabledException.vala src/exceptions/FileOrDirectoryNotFoundException.vala src/exceptions/NullReferenceException.vala src/utils/StringUtil.vala test/FFmpegTest.vala src/exceptions/IllegalArgumentException.vala src/exceptions/IOException.vala -o ffmpeg-cli-wrapper
+$ valac --pkg gio-2.0 --pkg gee-0.8 src/FFconvert.vala src/FFmpeg.vala src/exceptions/CodecNotEnabledException.vala src/exceptions/FileOrDirectoryNotFoundException.vala src/exceptions/NullReferenceException.vala src/utils/StringUtil.vala test/FFmpegTest.vala src/exceptions/IllegalArgumentException.vala src/exceptions/IOException.vala src/probe/FFprobeError.vala src/probe/FFprobeFormat.vala src/probe/FFprobeStream.vala -o ffmpeg-cli-wrapper
 ```
 
 #### execute
