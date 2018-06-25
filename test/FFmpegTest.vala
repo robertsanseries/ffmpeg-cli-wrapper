@@ -31,20 +31,22 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
                     true,
                     "avi"
                 );
-                GLib.message (ffmpeg.get_cmd ());
+                GLib.message (ffmpeg.get_command ());
 
                 FFmpeg ffmpeg1 = new FFmpeg ();
                 ffmpeg1.set_input ("/home/Vídeos/MarcusMiller.mkv");
                 ffmpeg1.set_output ("/home/Vídeos/MarcusMiller.avi");
                 ffmpeg1.set_format ("avi");
                 ffmpeg1.set_override_output (true);
-                GLib.message (ffmpeg1.get_cmd ());*/
+                GLib.message (ffmpeg1.get_command ());*/
 
                 FFmpeg ffmpeg2 = new FFmpeg ()
                 .set_input ("/home/robertsanseries/Documentos/doc.mp4")
                 .set_output ("/home/robertsanseries/Documentos/doc.avi")
                 .set_format ("avi")
                 .set_override_output (true);
+
+                GLib.message (ffmpeg2.get_command ());
 
                 FFconvert ffconvert = new FFconvert (ffmpeg2);
                 GLib.MainLoop mainloop = new GLib.MainLoop();

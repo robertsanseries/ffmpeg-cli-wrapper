@@ -21,30 +21,34 @@
  * SOFTWARE.
  */
 
-using com.github.robertsanseries.FFmpegCliWrapper.Exceptions;
-
 namespace com.github.robertsanseries.FFmpegCliWrapper {
 
-    public class FFcommon {
+    public class FFprobe {
 
         /* Fields */
-        protected string input;
-        protected string output;
-        protected string acodec;
-        protected string vcodec;
-        protected string format;
-        protected bool override_output;
-
+        private FFprobeError error;
+        private FFprobeFormat format;
+        private List<FFprobeStream> streams;
+        
         /* Constructor */
-        public FFcommon (FFmpeg ffmpeg) {
-            GLib.message ("init class FFcommon");
+        public FFprobe () {
+            GLib.message ("init class FFprobe");
+        }
 
-            this.input = ffmpeg.get_input ();
-        	this.output = ffmpeg.get_output ();
-        	this.acodec = ffmpeg.get_acodec ();
-        	this.vcodec = ffmpeg.get_vcodec ();
-        	this.format = ffmpeg.get_format ();
-        	this.override_output = ffmpeg.get_override_output ();
+        public FFmpegError get_error () {
+            return this.error;
+        }
+
+        public bool has_error () {
+            return this.error != null;
+        }
+
+        public FFmpegFormat get_format () {
+            return this.format;
+        }
+
+        public List<FFmpegStream> get_streams () {
+            return this.streams;
         }
     }
 }

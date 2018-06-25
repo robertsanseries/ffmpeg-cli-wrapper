@@ -30,7 +30,6 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
         /* Fields */
         private const string FFMPEG = "ffmpeg";
-        private FFcommon ffcommon = null;
         private string input;
         private string output;
         private string acodec;
@@ -134,21 +133,17 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
         public string[] get () throws Error {
             GenericArray<string> array_str = command_mount ();
-            this.build ();
-
             GLib.message ("returning the command that will be executed");
             return array_str.data;
         }
 
-        public string get_cmd () throws Error {
+        public string get_command () throws Error {
             GenericArray<string> array_str = command_mount ();
             string command = StringUtil.EMPTY;
             
             array_str.foreach ((str) => {
                 command += str + StringUtil.SPACE;
             });
-
-            this.build ();
 
             GLib.message ("returning the command that will be executed");
             return command;
@@ -165,6 +160,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
                 array_str.add ("-y");    
             }
             
+            array_str.add ("-hide_banner");
+
             array_str.add ("-i");
             
             if (StringUtil.is_not_empty (this.input)) {
@@ -183,15 +180,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             }
 
             return array_str;
-        }
-
-        private FFcommon build () {
-            if (this.ffcommon == null) {
-                this.ffcommon = new FFcommon (this);
-            }
-            
-            return this.ffcommon;
-        }        
+        }      
 
         public string get_input () {
             return this.input;
