@@ -1,3 +1,5 @@
+#add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
+
 robertsanseries_ffmpeg_cli_wrapper_files = files(
 	'src/exceptions/CodecNotEnabledException.vala',
 	'src/exceptions/FileOrDirectoryNotFoundException.vala',
@@ -10,4 +12,5 @@ robertsanseries_ffmpeg_cli_wrapper_files = files(
 	'src/utils/StringUtil.vala',
 	'src/FFconvert.vala',
 	'src/FFmpeg.vala',
+	'src/FFprobe.vala',
 )

@@ -21,23 +21,78 @@
  * SOFTWARE.
  */
 
+using com.github.robertsanseries.FFmpegCliWrapper.Exceptions;
 using com.github.robertsanseries.FFmpegCliWrapper.Probe;
 
 namespace com.github.robertsanseries.FFmpegCliWrapper {
+
+    public errordomain MyError {
+            INVALID_FORMAT
+        }
 
     public class FFprobe {
 
         /* Fields */
         private FFprobeError error;
         private FFprobeFormat format;
-        private List<FFprobeStream> streams;
+        private GLib.List<FFprobeStream> streams;
+
+        
         
         /* Constructor */
-        public FFprobe () {
+        public FFprobe (string input) {
             GLib.message ("init class FFprobe");
+
+            string standard_output;
+            string standard_error;
+            int exit_status;
+
+            Process.spawn_command_line_sync (
+                "ffprobe -hide_banner -show_format -show_error -show_streams -show_programs -show_chapters -show_private_data -print_format json ".concat(input), 
+                out standard_output, out standard_error, out exit_status
+            );
+
+            if (exit_status != 0) {
+                throw new IOException.MESSAGE (standard_error);
+            }
+
+            //process_json(standard_output);
+
         }
 
-        public FFmpegError get_error () {
+        private void process_json (string json) {
+            var parser = new Json.Parser();
+            parser.load_from_data (json);
+
+            // Get the root node:
+           // var node = parser.get_root ();
+
+           /* if (node.get_node_type () != Json.NodeType.OBJECT) {
+                throw new MyError.INVALID_FORMAT ("Unexpected element type %s", node.type_name ());
+            }
+
+            unowned Json.Object obj = node.get_object ();
+
+            foreach (unowned string name in obj.get_members ()) {
+                switch (name) {
+                case "format":
+                    unowned Json.Node item = obj.get_member (name);
+                    message("foi");
+                    //process_good (item);
+                    break;
+
+                /*case "bad":
+                    unowned Json.Node item = obj.get_member (name);
+                    process_bad (item);
+                    break;* /
+
+                default:
+                    throw new MyError.INVALID_FORMAT ("Unexpected element '%s'", name);
+                }
+            }*/
+        }
+
+        public FFprobeError get_error () {
             return this.error;
         }
 
@@ -45,12 +100,12 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             return this.error != null;
         }
 
-        public FFmpegFormat get_format () {
+        public FFprobeFormat get_format () {
             return this.format;
         }
 
-        public List<FFmpegStream> get_streams () {
+        /*public GLib.List<FFprobeStream>? get_streams () {
             return this.streams;
-        }
+        }*/
     }
 }

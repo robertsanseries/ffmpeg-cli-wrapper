@@ -36,6 +36,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         private string vcodec;
         private string format;
         private bool override_output = false;
+        private FFprobe ffprobe;
         
 
         /* Constructor */
@@ -63,7 +64,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             GLib.message ("setting the input value");
             
             if (StringUtil.is_not_empty (input)) {
-                this.input = input;                
+                this.input = input;
+                this.ffprobe = new FFprobe (this.input);
             } else {
                 throw new IllegalArgumentException.MESSAGE ("Input value is null");
             }
@@ -204,6 +206,10 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         
         public bool get_override_output () {
             return this.override_output;
+        }
+
+        public FFprobe get_ffprobe () {
+            return this.ffprobe;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
                 ffmpeg1.set_output ("/home/Vídeos/MarcusMiller.avi");
                 ffmpeg1.set_format ("avi");
                 ffmpeg1.set_override_output (true);
-                GLib.message (ffmpeg1.get_command ());*/
+                GLib.message (ffmpeg1.get_command ());
 
                 FFmpeg ffmpeg2 = new FFmpeg ()
                 .set_input ("/home/robertsanseries/Documentos/doc.mp4")
@@ -65,7 +65,9 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
 
                      mainloop.quit();
                 });
-                mainloop.run();
+                mainloop.run();*/
+
+                FFprobe ffprobe = new FFprobe ("/home/robertsanseries/Documentos/doc.mp4");
             } catch (Error e) {
                 GLib.critical (e.message);
             }
