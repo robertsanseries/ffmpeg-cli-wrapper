@@ -48,6 +48,10 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
             GLib.message ("init class FFprobeFormat");
         }
 
+        public void set_filename (string filename) {
+            this.filename = filename;
+        }
+
         public string get_filename () {
             return this.filename;
         }
