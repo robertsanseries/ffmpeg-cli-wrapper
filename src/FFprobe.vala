@@ -441,7 +441,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
                     case "filename":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        this.format.set_filename(obj.get_string_member ("filename"));
+                        //this.format.set_filename(obj.get_string_member ("filename"));
                         break;
 
                     case "nb_streams":
