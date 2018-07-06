@@ -26,74 +26,77 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
     public class FFprobeFormat {
     
         /* Fields */
-        private string filename;
-        private int nb_streams;
-        private int nb_programs;
-
-        private string format_name;
-        private string format_long_name;
-        private double start_time;
-        
-        private double duration;
-        private long size;
-
-        private long bit_rate;
-        private int probe_score;
-
-        private Gee.Map<string, string> tags;
-
+        private string _filename;
+        private int _nb_streams;
+        private int _nb_programs;
+        private string _format_name;
+        private string _format_long_name;
+        private double _start_time;
+        private double _duration;
+        private long _size;
+        private long _bit_rate;
+        private int _probe_score;
+        private Gee.Map<string, string> _tags;
 
         /* Constructor */
         public FFprobeFormat () {
             GLib.message ("init class FFprobeFormat");
         }
 
-        public void set_filename (string filename) {
-            this.filename = filename;
+        /* Propriedade */
+        public string filename {
+            get { return  _filename ; }
+            set { _filename = value ; }
         }
 
-        public string get_filename () {
-            return this.filename;
+        public int nb_streams {
+            get { return  _nb_streams ; }
+            set { _nb_streams = value ; }
         }
 
-        public int get_nb_streams () {
-            return this.nb_streams;
+        public int nb_programs {
+            get { return  _nb_programs ; }
+            set { _nb_programs = value ; }
         }
 
-        public int get_nb_programs () {
-            return this.nb_programs;
+        public string format_name {
+            get { return  _format_name ; }
+            set { _format_name = value ; }
         }
 
-        public string get_format_name () {
-            return this.format_name;
+        public string format_long_name {
+            get { return  _format_long_name ; }
+            set { _format_long_name = value ; }
         }
 
-        public string get_format_long_name () {
-            return this.format_long_name;
+        public double start_time {
+            get { return  _age ; }
+            set { _age = value ; }
         }
 
-        public double get_start_time () {
-            return this.start_time;
+        public double duration {
+            get { return  _duration ; }
+            set { _duration = value ; }
         }
 
-        public double get_duration () {
-            return this.duration;
+        public long size {
+            get { return  _size ; }
+            set { _size = value ; }
         }
 
-        public long get_size () {
-            return this.size;
+        public long bit_rate {
+            get { return  _bit_rate ; }
+            set { _bit_rate = value ; }
         }
 
-        public long get_bit_rate () {
-            return this.bit_rate;
+        public int probe_score {
+            get { return  _probe_score ; }
+            set { _probe_score = value ; }
         }
 
-        public int get_probe_score () {
-            return this.probe_score;
-        }
-
-        public Gee.Map<string, string> get_tags () {
-            return this.tags;
+        public Gee.Map<string, string> tags {
+            get { return  _tags ; }
+            set { _tags = value ; }
         }
     }
 }
