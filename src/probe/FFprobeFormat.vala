@@ -36,11 +36,12 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         public long size                    { get; set; }
         public long bit_rate                { get; set; }
         public int probe_score              { get; set; }
-        public Gee.Map<string, string> tags { get; set; }
+        public Gee.HashMap<string, string> tags { get; set; }
 
         /* Constructor */
         public FFprobeFormat () {
             GLib.message ("init class FFprobeFormat");
+            this.tags = new Gee.HashMap<string, string> ();
         }
     }
 }
