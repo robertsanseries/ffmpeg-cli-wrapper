@@ -70,8 +70,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         }
 
         public double start_time {
-            get { return  _age ; }
-            set { _age = value ; }
+            get { return  _start_time ; }
+            set { _start_time = value ; }
         }
 
         public double duration {
@@ -95,7 +95,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         }
 
         public Gee.Map<string, string> tags {
-            get { return  _tags ; }
+            get { return _tags ; }
             set { _tags = value ; }
         }
     }

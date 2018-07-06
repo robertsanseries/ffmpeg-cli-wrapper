@@ -26,20 +26,23 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
     public class FFprobeError {
         
         /* Fields */
-        private int code;
-        private string name;
+        private int _code;
+        private string _name;
 
         /* Constructor */
         public FFprobeError () {
             GLib.message ("init class FFprobeError");
         }
 
-        public int get_code () {
-            return this.code;
+        /* Propriedade */
+        public int code {
+            get { return _code ; }
+            set { _code = value ; }
         }
 
-        public string get_name () {
-            return this.name;
+        public string name {
+            get { return _name ; }
+            set { _name = value ; }
         }
     }
 }

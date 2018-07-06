@@ -31,13 +31,13 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         }
     
         /* Fields */
-        private string filename;
-        private int index;
-        private string codec_name;
-        private string codec_long_name;
-        private string profile;
-        private CodecType codec_type;
-        //private Fraction codec_time_base;
+        private string _filename;
+        private int _index;
+        private string _codec_name;
+        private string _codec_long_name;
+        private string _profile;
+        private CodecType _codec_type;
+        //private Fraction _codec_time_base;       
 
         private string codec_tag_string;
         private string codec_tag;
@@ -87,32 +87,39 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
             GLib.message ("init class FFprobeStream");
         }
 
-        public string get_filename () {
-          return this.filename;
+        public string filename {
+            get { return  _filename ; }
+            set { _filename = value ; }
         }
 
-        public int get_index () {
-          return this.index;
+        public int index {
+            get { return  _index ; }
+            set { _index = value ; }
         }
 
-        public string get_codec_name () {
-          return this.codec_name;
+        public string codec_name {
+            get { return  _codec_name ; }
+            set { _codec_name = value ; }
         }
 
-        public string get_codec_long_name () {
-          return this.codec_long_name;
+        public string codec_long_name {
+            get { return  _codec_long_name ; }
+            set { _codec_long_name = value ; }
         }
 
-        public string get_profile () {
-          return this.profile;
+        public string profile {
+            get { return  _profile ; }
+            set { _profile = value ; }
         }
 
-        public CodecType get_codec_type () {
-          return this.codec_type;
+        public CodecType codec_type {
+            get { return  _codec_type ; }
+            set { _codec_type = value ; }
         }
 
-        /*public Fraction get_codec_time_base () {
-          return this.codec_time_base;
+        /*public Fraction codec_time_base {
+            get { return  _codec_time_base ; }
+            set { _codec_time_base = value ; }
         }*/
 
         public string get_codec_tag_string () {
