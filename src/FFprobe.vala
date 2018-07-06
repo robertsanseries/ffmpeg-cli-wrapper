@@ -447,55 +447,55 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
                     case "nb_streams":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        this.format.set_nb_streams (obj.get_string_member ("nb_streams"));
+                        //this.format.set_nb_streams (obj.get_string_member ("nb_streams"));
                         break;
 
                     case "nb_programs":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        this.format.set_nb_programs (obj.get_string_member ("nb_programs"));
+                        //this.format.set_nb_programs (obj.get_string_member ("nb_programs"));
                         break;
                     
                     case "format_name":
                         Json.Node item = obj.get_member (name);
-                        this.format.set_validate_node_type_value (item);
-                        this.format.set_name (obj.get_string_member ("format_name"));
+                        this.validate_node_type_value (item);
+                        //this.format.set_name (obj.get_string_member ("format_name"));
                         break;
 
                     case "format_long_name":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        this.format.set_format_long_name (obj.get_string_member ("format_long_name"));
+                        //this.format.set_format_long_name (obj.get_string_member ("format_long_name"));
                         break;
 
                     case "start_time":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        this.format.set_start_time (obj.get_string_member ("start_time"));
+                        //this.format.set_start_time (obj.get_string_member ("start_time"));
                         break;
 
                     case "duration":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        this.format.set_duration (obj.get_string_member ("duration"));
+                        //this.format.set_duration (obj.get_string_member ("duration"));
                         break;
                     
                     case "size":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        this.format.set_size (obj.get_string_member ("size"));
+                        //this.format.set_size (obj.get_string_member ("size"));
                         break;
 
                     case "bit_rate":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        this.format.set_bit_rate (obj.get_string_member ("bit_rate"));
+                        //this.format.set_bit_rate (obj.get_string_member ("bit_rate"));
                         break;
 
                     case "probe_score":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        this.format.set_probe_score (obj.get_string_member ("probe_score"));
+                        //this.format.set_probe_score (obj.get_string_member ("probe_score"));
                         break;
 
                     case "tags":
