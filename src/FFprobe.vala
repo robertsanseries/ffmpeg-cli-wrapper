@@ -441,61 +441,61 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
                     case "filename":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        //this.format.set_filename(obj.get_string_member ("filename"));
+                        this.format.filename = obj.get_string_member ("filename");
                         break;
 
                     case "nb_streams":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        //this.format.set_nb_streams (obj.get_string_member ("nb_streams"));
+                        this.format.nb_streams = int.parse(obj.get_string_member ("nb_streams"));
                         break;
 
                     case "nb_programs":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        //this.format.set_nb_programs (obj.get_string_member ("nb_programs"));
+                        this.format.nb_programs = int.parse(obj.get_string_member ("nb_programs"));
                         break;
                     
                     case "format_name":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        //this.format.set_name (obj.get_string_member ("format_name"));
+                        this.format.format_name = obj.get_string_member ("format_name");
                         break;
 
                     case "format_long_name":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        //this.format.set_format_long_name (obj.get_string_member ("format_long_name"));
+                        this.format.format_long_name = obj.get_string_member ("format_long_name");
                         break;
 
                     case "start_time":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        //this.format.set_start_time (obj.get_string_member ("start_time"));
+                        this.format.start_time = int.parse(obj.get_string_member ("start_time"));
                         break;
 
                     case "duration":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        //this.format.set_duration (obj.get_string_member ("duration"));
+                        this.format.duration = int.parse(obj.get_string_member ("duration"));
                         break;
                     
                     case "size":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        //this.format.set_size (obj.get_string_member ("size"));
+                        this.format.size = obj.get_string_member ("size").to_int ();
                         break;
 
                     case "bit_rate":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        //this.format.set_bit_rate (obj.get_string_member ("bit_rate"));
+                        this.format.bit_rate = int.parse(obj.get_string_member ("bit_rate"));
                         break;
 
                     case "probe_score":
                         Json.Node item = obj.get_member (name);
                         this.validate_node_type_value (item);
-                        //this.format.set_probe_score (obj.get_string_member ("probe_score"));
+                        this.format.probe_score = int.parse(obj.get_string_member ("probe_score"));
                         break;
 
                     case "tags":
