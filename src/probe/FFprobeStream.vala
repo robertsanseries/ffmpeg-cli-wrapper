@@ -31,219 +31,48 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         }
     
         /* Fields */
-        private string _filename;
-        private int _index;
-        private string _codec_name;
-        private string _codec_long_name;
-        private string _profile;
-        private CodecType _codec_type;
-        //private Fraction _codec_time_base;       
-
-        private string codec_tag_string;
-        private string codec_tag;
-
-        private int width;
-        private int height;
-
-        private int has_b_frames;
-
-        private string sample_aspect_ratio;
-        private string display_aspect_ratio;
-
-        private string pix_fmt;
-        private int level;
-        private string chroma_location;
-        private int refs;
-        private string is_avc;
-        private string nal_length_size;
-        //private Fraction r_frame_rate;
-        //private Fraction avg_frame_rate;
-        //private Fraction time_base;
-
-        private long start_pts;
-        private double start_time;
-
-        private long duration_ts;
-        private double duration;
-
-        private long bit_rate;
-        private long max_bit_rate;
-        private int bits_per_raw_sample;
-        private int bits_per_sample;
-
-        private long nb_frames;
-
-        private string sample_fmt;
-        private int sample_rate;
-        private int channels;
-        private string channel_layout;
-
-        //private FFmpegDisposition disposition;
-
-        private Gee.Map<string, string> tags;
+        public string filename                 { get; set; }
+        public int index                       { get; set; }
+        public string codec_name               { get; set; }
+        public string codec_long_name          { get; set; }
+        public string profile                  { get; set; }
+        public CodecType codec_type            { get; set; }
+        //public Fraction codec_time_base      { get; set; }
+        public string codec_tag_string         { get; set; }
+        public string codec_tag                { get; set; }
+        public int width                       { get; set; }
+        public int height                      { get; set; }
+        public int has_b_frames                { get; set; }
+        public string sample_aspect_ratio      { get; set; }
+        public string display_aspect_ratio     { get; set; }
+        public string pix_fmt                  { get; set; }
+        public int level                       { get; set; }
+        public string chroma_location          { get; set; }
+        public int refs                        { get; set; }
+        public string is_avc                   { get; set; }
+        public string nal_length_size          { get; set; }
+        //public Fraction r_frame_rate         { get; set; }
+        //public Fraction avg_frame_rate       { get; set; }
+        //public Fraction time_base            { get; set; }
+        public long start_pts                  { get; set; }
+        public double start_time               { get; set; }
+        public long duration_ts                { get; set; }
+        public double duration                 { get; set; }
+        public long bit_rate                   { get; set; }
+        public long max_bit_rate               { get; set; }
+        public int bits_per_raw_sample         { get; set; }
+        public int bits_per_sample             { get; set; }
+        public long nb_frames                  { get; set; }
+        public string sample_fmt               { get; set; }
+        public int sample_rate                 { get; set; }
+        public int channels                    { get; set; }
+        public string channel_layout           { get; set; }
+        //public FFmpegDisposition disposition { get; set; }
+        public Gee.Map<string, string> tags    { get; set; }
 
         /* Constructor */
         public FFprobeStream () {
             GLib.message ("init class FFprobeStream");
-        }
-
-        public string filename {
-            get { return  _filename ; }
-            set { _filename = value ; }
-        }
-
-        public int index {
-            get { return  _index ; }
-            set { _index = value ; }
-        }
-
-        public string codec_name {
-            get { return  _codec_name ; }
-            set { _codec_name = value ; }
-        }
-
-        public string codec_long_name {
-            get { return  _codec_long_name ; }
-            set { _codec_long_name = value ; }
-        }
-
-        public string profile {
-            get { return  _profile ; }
-            set { _profile = value ; }
-        }
-
-        public CodecType codec_type {
-            get { return  _codec_type ; }
-            set { _codec_type = value ; }
-        }
-
-        /*public Fraction codec_time_base {
-            get { return  _codec_time_base ; }
-            set { _codec_time_base = value ; }
-        }*/
-
-        public string get_codec_tag_string () {
-          return this.codec_tag_string;
-        }
-
-        public string get_codec_tag () {
-          return this.codec_tag;
-        }
-
-        public int get_width () {
-          return this.width;
-        }
-
-        public int get_height () {
-          return this.height;
-        }
-
-        public int get_has_b_frames () {
-          return this.has_b_frames;
-        }
-
-        public string get_sample_aspect_ratio () {
-          return this.sample_aspect_ratio;
-        }
-
-        public string get_display_aspect_ratio () {
-          return this.display_aspect_ratio;
-        }
-
-        public string get_pix_fmt () {
-          return this.pix_fmt;
-        }
-
-        public int get_level () {
-          return this.level;
-        }
-
-        public string get_chroma_location () {
-          return this.chroma_location;
-        }
-
-        public int get_refs () {
-          return this.refs;
-        }
-
-        public string get_is_avc () {
-          return this.is_avc;
-        }
-
-        public string get_nal_length_size () {
-          return this.nal_length_size;
-        }
-
-        /*public Fraction get_r_frame_rate () {
-          return this.r_frame_rate;
-        }
-
-        public Fraction get_avg_frame_rate () {
-          return this.avg_frame_rate;
-        }
-
-        public Fraction get_time_base () {
-          return this.time_base;
-        }*/
-
-        public long get_start_pts () {
-          return this.start_pts;
-        }
-
-        public double get_start_time () {
-          return this.start_time;
-        }
-
-        public long get_duration_ts () {
-          return this.duration_ts;
-        }
-
-        public double get_duration () {
-          return this.duration;
-        }
-
-        public long get_bit_rate () {
-          return this.bit_rate;
-        }
-
-        public long get_max_bit_rate () {
-          return this.max_bit_rate;
-        }
-
-        public int get_bits_per_raw_sample () {
-          return this.bits_per_raw_sample;
-        }
-
-        public int get_bits_per_sample () {
-          return this.bits_per_sample;
-        }
-
-        public long get_nb_frames () {
-          return this.nb_frames;
-        }
-
-        public string get_sample_fmt () {
-          return this.sample_fmt;
-        }
-
-        public int get_sample_rate () {
-          return this.sample_rate;
-        }
-
-        public int get_channels () {
-          return this.channels;
-        }
-
-        public string get_channel_layout () {
-          return this.channel_layout;
-        }
-
-        /*public FFmpegDisposition get_disposition () {
-          return this.disposition;
-        }*/
-
-        public Gee.Map<string, string> get_tags () {
-            return this.tags;
         }
     }
 }
