@@ -67,13 +67,14 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         public int sample_rate                  { get; set; }
         public int channels                     { get; set; }
         public string channel_layout            { get; set; }
-        //public FFmpegDisposition disposition  { get; set; }
+        public FFmpegDisposition disposition    { get; set; }
         public Gee.HashMap<string, string> tags { get; set; }
 
         /* Constructor */
         public FFprobeStream () {
             GLib.message ("init class FFprobeStream");
             this.tags = new Gee.HashMap<string, string> ();
+            this.disposition = new FFmpegDisposition ();
         }
     }
 }
