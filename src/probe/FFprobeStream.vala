@@ -36,8 +36,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         public string codec_name                { get; set; }
         public string codec_long_name           { get; set; }
         public string profile                   { get; set; }
-        public CodecType codec_type             { get; set; }
-        //public Fraction codec_time_base       { get; set; }
+        public string codec_type                { get; set; }
+        public string codec_time_base           { get; set; }
         public string codec_tag_string          { get; set; }
         public string codec_tag                 { get; set; }
         public int width                        { get; set; }
@@ -51,9 +51,9 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         public int refs                         { get; set; }
         public string is_avc                    { get; set; }
         public string nal_length_size           { get; set; }
-        //public Fraction r_frame_rate          { get; set; }
-        //public Fraction avg_frame_rate        { get; set; }
-        //public Fraction time_base             { get; set; }
+        public string r_frame_rate              { get; set; }
+        public string avg_frame_rate            { get; set; }
+        public string time_base                 { get; set; }
         public long start_pts                   { get; set; }
         public double start_time                { get; set; }
         public long duration_ts                 { get; set; }

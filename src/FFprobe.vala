@@ -131,11 +131,11 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             if (obj.has_member ("profile"))
                 ffprobe_stream.profile = obj.get_string_member ("profile");
             
-            //if (obj.has_member ("codec_type"))
-            //ffprobe_stream.codec_type = obj.get_string_member ("codec_type");
+            if (obj.has_member ("codec_type"))
+                ffprobe_stream.codec_type = obj.get_string_member ("codec_type");
 
-            //if (obj.has_member ("codec_time_base"))
-            //ffprobe_stream.codec_time_base = obj.get_string_member ("codec_time_base");
+            if (obj.has_member ("codec_time_base"))
+                ffprobe_stream.codec_time_base = obj.get_string_member ("codec_time_base");
 
             if (obj.has_member ("codec_tag_string"))
                 ffprobe_stream.codec_tag_string = obj.get_string_member ("codec_tag_string");
@@ -149,11 +149,11 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             if (obj.has_member ("height"))
                 ffprobe_stream.height = (int) obj.get_int_member ("height");
 
-            //if (obj.has_member ("coded_width"))
-                //ffprobe_stream.coded_width = (int) obj.get_string_member ("coded_width");
+            if (obj.has_member ("coded_width"))
+                ffprobe_stream.coded_width = (int) obj.get_string_member ("coded_width");
 
-            //if (obj.has_member ("coded_height"))
-                //ffprobe_stream.coded_height = (int) obj.get_string_member ("coded_height");
+            if (obj.has_member ("coded_height"))
+                ffprobe_stream.coded_height = (int) obj.get_string_member ("coded_height");
             
             if (obj.has_member ("has_b_frames"))
                 ffprobe_stream.has_b_frames = (int) obj.get_int_member ("has_b_frames");
@@ -182,14 +182,14 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             if (obj.has_member ("nal_length_size"))
                 ffprobe_stream.nal_length_size = obj.get_string_member ("nal_length_size");
 
-            //if (obj.has_member ("r_frame_rate"))
-                //ffprobe_stream.r_frame_rate = obj.get_string_member ("r_frame_rate");
+            if (obj.has_member ("r_frame_rate"))
+                ffprobe_stream.r_frame_rate = obj.get_string_member ("r_frame_rate");
 
-            //if (obj.has_member ("avg_frame_rate"))
-                //ffprobe_stream.avg_frame_rate = obj.get_string_member ("avg_frame_rate");
+            if (obj.has_member ("avg_frame_rate"))
+                ffprobe_stream.avg_frame_rate = obj.get_string_member ("avg_frame_rate");
             
-            //if (obj.has_member ("time_base"))
-                //ffprobe_stream.time_base = obj.get_string_member ("time_base");
+            if (obj.has_member ("time_base"))
+                ffprobe_stream.time_base = obj.get_string_member ("time_base");
             
             if (obj.has_member ("start_pts"))
                 ffprobe_stream.start_pts = (long) obj.get_int_member ("start_pts");
