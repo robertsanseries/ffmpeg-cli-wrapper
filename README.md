@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>FFmpeg Cli Wrapper</h1>
+    <h1>FFmpeg Wrapper</h1>
     <h3 align="center">Vala wrapper around the FFmpeg command line tool</h3>
     <p align="center">
         <img src="https://api.travis-ci.org/robertsanseries/ffmpeg-cli-wrapper.svg?branch=master">
@@ -17,13 +17,13 @@ This library requires a working FFMpeg install. You will need both FFMpeg and FF
 
 ### Installation
 
-You can download FFmpeg Cli Wrapper via Github [Here](https://github.com/robertsanseries/ffmpeg-cli-wrapper/archive/master.zip)
+You can download FFmpeg Wrapper via Github [Here](https://github.com/robertsanseries/ffmpeg-cli-wrapper/archive/master.zip)
 
 or If you want install via [Vanat](https://vanat.github.io). *recommended
 
 
 ```bash
-$ vanat require robertsanseries/ffmpeg-cli-wrapper
+$ vanat require robertsanseries/ffmpeg-wrapper
 ```
 
 #### Requirements
@@ -34,6 +34,40 @@ $ vanat require robertsanseries/ffmpeg-cli-wrapper
 ### Documentation
 
 You can find the complete documentation on our [Wiki](""). Or parse the source code.
+
+### Basic exemple
+
+```vala
+FFmpeg ffmpeg2 = new FFmpeg ()
+.set_input ("/home/robertsanseries/Documentos/doc.mp4")
+.set_output ("/home/robertsanseries/Documentos/doc.avi")
+.set_format ("avi")
+.set_override_output (true);
+
+GLib.message (ffmpeg2.get_command ());
+
+FFconvert ffconvert = new FFconvert (ffmpeg2);
+GLib.MainLoop mainloop = new GLib.MainLoop();
+ffconvert.convert.begin ((obj, async_res) => {
+    try {
+        GLib.Subprocess subprocess = ffconvert.convert.end (async_res);
+
+        if (subprocess != null && subprocess.wait_check ()) {
+            GLib.message ("Success");
+        } else {
+            GLib.message ("Error");
+        }
+    } catch (Error e) {
+        GLib.critical (e.message);        
+    }
+
+     mainloop.quit();
+});
+mainloop.run();
+
+FFprobe ffprobe = ffmpeg2.get_ffprobe ();
+stdout.printf(ffprobe.format.filename)
+```
 
 #### Basic Usage
 
@@ -124,7 +158,6 @@ stdout.printf (ffmpeg.get_cmd ());
 ```sh
 $ ffmpeg -y -i /home/Vídeos/MarcusMiller.mkv -f avi /home/Vídeos/MarcusMiller.avi
 ```
-
 
 ### Test
 

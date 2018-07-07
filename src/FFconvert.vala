@@ -28,6 +28,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
     public class FFconvert {
 
+        /* Propriedade */
         private FFmpeg ffmpeg;
         public bool error;
         public string msg_error;

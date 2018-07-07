@@ -28,7 +28,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
     public class FFmpeg {
 
-        /* Fields */
+        /* Propriedade */
         private const string FFMPEG = "ffmpeg";
         private string input;
         private string output;

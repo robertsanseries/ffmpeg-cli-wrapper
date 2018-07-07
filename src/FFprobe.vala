@@ -32,7 +32,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
     public class FFprobe {
 
-        /* Fields */
+        /* Propriedade */
         public FFprobeFormat format               { get; set; }
         public Gee.HashSet<FFprobeStream> streams { get; set; }
        
