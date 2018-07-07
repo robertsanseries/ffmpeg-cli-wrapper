@@ -201,7 +201,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             if (obj.has_member ("tags"))
                 ffprobe_stream.tags = this.process_streams_tags (obj.get_member ("tags"));
 
-            //this.streams.set(ffprobe_stream);
+            this.streams.add(ffprobe_stream);
         }
        
         private FFprobeDisposition process_disposition (Json.Node node) throws Error {

@@ -44,6 +44,7 @@ FFmpeg ffmpeg2 = new FFmpeg ()
 .set_format ("avi")
 .set_override_output (true);
 
+// output: ffmpeg -y -hide_banner -i /home/robertsanseries/Documentos/doc.mp4 -f avi /home/robertsanseries/Documentos/doc.avi
 GLib.message (ffmpeg2.get_command ());
 
 FFconvert ffconvert = new FFconvert (ffmpeg2);
@@ -66,7 +67,9 @@ ffconvert.convert.begin ((obj, async_res) => {
 mainloop.run();
 
 FFprobe ffprobe = ffmpeg2.get_ffprobe ();
-stdout.printf(ffprobe.format.filename)
+
+// output: /home/robertsanseries/Documentos/doc.mp4
+stdout.printf(ffprobe.format.filename);
 ```
 
 #### Basic Usage
