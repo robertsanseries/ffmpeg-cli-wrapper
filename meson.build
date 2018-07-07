@@ -6,7 +6,7 @@ robertsanseries_ffmpeg_cli_wrapper_files = files(
 	'src/exceptions/IllegalArgumentException.vala',
 	'src/exceptions/IOException.vala'
 	'src/exceptions/NullReferenceException.vala',
-	'src/probe/FFmpegDisposition.vala',
+	'src/probe/FFprobeDisposition.vala',
 	'src/probe/FFprobeError.vala',
 	'src/probe/FFprobeFormat.vala',
 	'src/probe/FFprobeStream.vala',

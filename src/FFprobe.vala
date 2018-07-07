@@ -221,47 +221,47 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             //this.streams.set(ffprobe_stream);
         }
        
-        private void process_disposition (Json.Node node) throws Error {
+        private FFprobeDisposition process_disposition (Json.Node node) throws Error {
             this.validate_node_type_object (node);
 
             Json.Object obj = node.get_object ();
 
-            FFmpegDisposition ffmpeg_disposition = new FFmpegDisposition ();
+            FFprobeDisposition ffprobe_disposition = new FFprobeDisposition ();
 
             if (obj.has_member ("default"))
-                ffmpeg_disposition.default_ = (int) obj.get_int_member ("default");
+                ffprobe_disposition.default_ = (int) obj.get_int_member ("default");
 
             if (obj.has_member ("dub"))
-                ffmpeg_disposition.dub = (int) obj.get_int_member ("dub");
+                ffprobe_disposition.dub = (int) obj.get_int_member ("dub");
 
             if (obj.has_member ("original"))
-                ffmpeg_disposition.original = (int) obj.get_int_member ("original");
+                ffprobe_disposition.original = (int) obj.get_int_member ("original");
 
             if (obj.has_member ("comment"))
-                ffmpeg_disposition.comment = (int) obj.get_int_member ("comment");
+                ffprobe_disposition.comment = (int) obj.get_int_member ("comment");
 
             if (obj.has_member ("lyrics"))
-                ffmpeg_disposition.lyrics = (int) obj.get_int_member ("lyrics");
+                ffprobe_disposition.lyrics = (int) obj.get_int_member ("lyrics");
 
             if (obj.has_member ("karaoke"))
-                ffmpeg_disposition.karaoke = (int) obj.get_int_member ("karaoke");
+                ffprobe_disposition.karaoke = (int) obj.get_int_member ("karaoke");
 
             if (obj.has_member ("forced"))
-                ffmpeg_disposition.forced = (int) obj.get_int_member ("forced");
+                ffprobe_disposition.forced = (int) obj.get_int_member ("forced");
 
             if (obj.has_member ("hearing_impaired"))
-                ffmpeg_disposition.hearing_impaired = (int) obj.get_int_member ("hearing_impaired");
+                ffprobe_disposition.hearing_impaired = (int) obj.get_int_member ("hearing_impaired");
 
             if (obj.has_member ("visual_impaired"))
-                ffmpeg_disposition.visual_impaired = (int) obj.get_int_member ("visual_impaired");
+                ffprobe_disposition.visual_impaired = (int) obj.get_int_member ("visual_impaired");
 
             if (obj.has_member ("clean_effects"))
-                ffmpeg_disposition.clean_effects = (int) obj.get_int_member ("clean_effects");
+                ffprobe_disposition.clean_effects = (int) obj.get_int_member ("clean_effects");
 
             if (obj.has_member ("attached_pic"))
-                ffmpeg_disposition.attached_pic = (int) obj.get_int_member ("attached_pic");
+                ffprobe_disposition.attached_pic = (int) obj.get_int_member ("attached_pic");
 
-            return ffmpeg_disposition;
+            return ffprobe_disposition;
         }
 
         private Gee.HashMap<string, string> process_streams_tags (Json.Node node) throws Error {

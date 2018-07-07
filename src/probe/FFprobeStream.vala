@@ -42,6 +42,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         public string codec_tag                 { get; set; }
         public int width                        { get; set; }
         public int height                       { get; set; }
+        public int coded_width                  { get; set; }
+        public int coded_height                 { get; set; }
         public int has_b_frames                 { get; set; }
         public string sample_aspect_ratio       { get; set; }
         public string display_aspect_ratio      { get; set; }
@@ -67,14 +69,14 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         public int sample_rate                  { get; set; }
         public int channels                     { get; set; }
         public string channel_layout            { get; set; }
-        public FFmpegDisposition disposition    { get; set; }
+        public FFprobeDisposition disposition   { get; set; }
         public Gee.HashMap<string, string> tags { get; set; }
 
         /* Constructor */
         public FFprobeStream () {
             GLib.message ("init class FFprobeStream");
             this.tags = new Gee.HashMap<string, string> ();
-            this.disposition = new FFmpegDisposition ();
+            this.disposition = new FFprobeDisposition ();
         }
     }
 }

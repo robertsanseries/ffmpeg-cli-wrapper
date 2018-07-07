@@ -23,7 +23,7 @@
 
 namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
 
-    public class FFmpegDisposition {
+    public class FFprobeDisposition {
 
         /* Propriedade */
         public int default_         { get; set; }
@@ -39,8 +39,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
         public int attached_pic     { get; set; }
 
         /* Constructor */
-        public FFmpegDisposition () {
-            GLib.message ("init class FFmpegDisposition");
+        public FFprobeDisposition () {
+            GLib.message ("init class FFprobeDisposition");
         }
     }
 }
