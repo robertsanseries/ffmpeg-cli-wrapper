@@ -52,9 +52,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
                     out standard_output, out standard_error, out exit_status
                 );
 
-                if (exit_status != 0) {
+                if (exit_status != 0)
                     throw new IOException.MESSAGE (standard_error);
-                }
 
                 this.error   = new FFprobeError ();
                 this.format  = new FFprobeFormat ();
@@ -318,15 +317,13 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         }
 
         private void validate_node_type_object (Json.Node node) throws Error {
-            if (node.get_node_type () != Json.NodeType.OBJECT) {
+            if (node.get_node_type () != Json.NodeType.OBJECT)
                 throw new MyError.INVALID_FORMAT ("Unexpected element type %s", node.type_name ());
-            }
         }
 
         private void validate_node_type_array (Json.Node node) throws Error {
-            if (node.get_node_type () != Json.NodeType.ARRAY) {
+            if (node.get_node_type () != Json.NodeType.ARRAY)
                 throw new MyError.INVALID_FORMAT ("Unexpected element type %s", node.type_name ());
-            }
         }
 
         public bool has_error () {
