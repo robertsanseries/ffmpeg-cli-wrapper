@@ -33,9 +33,9 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
     public class FFprobe {
 
         /* Fields */
-        private FFprobeError error;
-        private FFprobeFormat format;
-        private Gee.HashSet<FFprobeStream> streams;
+        public FFprobeError error                 { get; set; }
+        public FFprobeFormat format               { get; set; }
+        public Gee.HashSet<FFprobeStream> streams { get; set; }
        
         /* Constructor */
         public FFprobe (string input) {
@@ -56,13 +56,13 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
                     throw new IOException.MESSAGE (standard_error);
                 }
 
-                this.error = new FFprobeError ();
-                this.format = new FFprobeFormat ();
+                this.error   = new FFprobeError ();
+                this.format  = new FFprobeFormat ();
                 this.streams = new Gee.HashSet<FFprobeStream> ();
 
                 this.process_json (standard_output);
             } catch (Error e) {
-                throw new IOException.MESSAGE (e.message);
+                GLib.error (e.message);
             }
         }
 
@@ -74,31 +74,16 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
             this.validate_node_type_object (node);
 
-            Json.Object obj = node.get_object ();
+            Json.Object obj    = node.get_object ();
+            Json.Node programs = obj.get_member ("programs");
+            Json.Node streams  = obj.get_member ("streams");
+            Json.Node chapters = obj.get_member ("chapters");
+            Json.Node format   = obj.get_member ("format");
 
-            foreach (string name in obj.get_members ()) {
-                switch (name) {
-                    case "programs":
-                        Json.Node item = obj.get_member (name);
-                        this.process_programs (item);
-                        break;
-
-                    case "streams":
-                        Json.Node item = obj.get_member (name);
-                        this.process_streams (item);
-                        break;
-
-                    case "chapters":
-                        Json.Node item = obj.get_member (name);
-                        this.process_chapters (item);
-                        break;
-                    
-                    case "format":
-                        Json.Node item = obj.get_member (name);
-                        this.process_format (item);
-                        break;
-                }
-            }
+            this.process_programs (programs);
+            this.process_streams (streams);
+            this.process_chapters (chapters);
+            this.process_format (format);
         }
 
         private void process_programs (Json.Node node) throws Error {
@@ -123,50 +108,115 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             Json.Object obj = node.get_object ();
 
             FFprobeStream ffprobe_stream = new FFprobeStream();
-            ffprobe_stream.index                = int.parse (obj.get_string_member ("index"));
-            ffprobe_stream.codec_name           = obj.get_string_member ("codec_name");
-            ffprobe_stream.codec_long_name      = obj.get_string_member ("codec_long_name");
-            ffprobe_stream.profile              = obj.get_string_member ("profile");
-            //ffprobe_stream.codec_type           = obj.get_string_member ("codec_type");
-            //ffprobe_stream.codec_time_base      = obj.get_string_member ("codec_time_base");
-            ffprobe_stream.codec_tag_string     = obj.get_string_member ("codec_tag_string");
-            ffprobe_stream.codec_tag            = obj.get_string_member ("codec_tag");
-            ffprobe_stream.width                = int.parse (obj.get_string_member ("width"));
-            ffprobe_stream.height               = int.parse (obj.get_string_member ("height"));
-            //ffprobe_stream.coded_width          = obj.get_string_member ("coded_width");
-            //ffprobe_stream.coded_height         = obj.get_string_member ("coded_height");
-            ffprobe_stream.has_b_frames         = int.parse (obj.get_string_member ("has_b_frames"));
-            ffprobe_stream.sample_aspect_ratio  = obj.get_string_member ("sample_aspect_ratio");
-            ffprobe_stream.display_aspect_ratio = obj.get_string_member ("display_aspect_ratio");
-            ffprobe_stream.pix_fmt              = obj.get_string_member ("pix_fmt");
-            ffprobe_stream.level                = int.parse (obj.get_string_member ("level"));
-            ffprobe_stream.chroma_location      = obj.get_string_member ("chroma_location");
-            ffprobe_stream.refs                 = int.parse (obj.get_string_member ("refs"));
-            ffprobe_stream.is_avc               = obj.get_string_member ("is_avc");
-            ffprobe_stream.nal_length_size      = obj.get_string_member ("nal_length_size");
-            //ffprobe_stream.r_frame_rate         = obj.get_string_member ("r_frame_rate");
-            //ffprobe_stream.avg_frame_rate       = obj.get_string_member ("avg_frame_rate");
-            //ffprobe_stream.time_base            = obj.get_string_member ("time_base");
-            ffprobe_stream.start_pts            = long.parse (obj.get_string_member ("start_pts"));
-            ffprobe_stream.start_time           = long.parse (obj.get_string_member ("start_time"));
-            ffprobe_stream.duration_ts          = long.parse (obj.get_string_member ("duration_ts"));
-            ffprobe_stream.duration             = long.parse (obj.get_string_member ("duration"));
-            ffprobe_stream.bit_rate             = long.parse (obj.get_string_member ("bit_rate"));
-            ffprobe_stream.bits_per_raw_sample  = int.parse (obj.get_string_member ("bits_per_raw_sample"));
-            ffprobe_stream.nb_frames            = long.parse (obj.get_string_member ("nb_frames"));
 
-            //ffprobe_stream.disposition  = this.process_disposition (obj.get_member ("disposition"));
-            ffprobe_stream.tags         = this.process_streams_tags (obj.get_member ("tags"));
+            if (obj.has_member ("index"))
+                ffprobe_stream.index = (int) obj.get_int_member ("index");
+
+            if (obj.has_member ("codec_name"))
+                ffprobe_stream.codec_name = obj.get_string_member ("codec_name");
+
+            if (obj.has_member ("codec_long_name"))
+                ffprobe_stream.codec_long_name = obj.get_string_member ("codec_long_name");
+            
+            if (obj.has_member ("profile"))
+                ffprobe_stream.profile = obj.get_string_member ("profile");
+            
+            //if (obj.has_member ("codec_type"))
+            //ffprobe_stream.codec_type = obj.get_string_member ("codec_type");
+
+            //if (obj.has_member ("codec_time_base"))
+            //ffprobe_stream.codec_time_base = obj.get_string_member ("codec_time_base");
+
+            if (obj.has_member ("codec_tag_string"))
+                ffprobe_stream.codec_tag_string = obj.get_string_member ("codec_tag_string");
+
+            if (obj.has_member ("codec_tag"))
+                ffprobe_stream.codec_tag = obj.get_string_member ("codec_tag");
+
+            if (obj.has_member ("width"))
+                ffprobe_stream.width = (int) obj.get_int_member ("width");
+
+            if (obj.has_member ("height"))
+                ffprobe_stream.height = (int) obj.get_int_member ("height");
+
+            //if (obj.has_member ("coded_width"))
+                //ffprobe_stream.coded_width = (int) obj.get_string_member ("coded_width");
+
+            //if (obj.has_member ("coded_height"))
+                //ffprobe_stream.coded_height = (int) obj.get_string_member ("coded_height");
+            
+            if (obj.has_member ("has_b_frames"))
+                ffprobe_stream.has_b_frames = (int) obj.get_int_member ("has_b_frames");
+
+            if (obj.has_member ("sample_aspect_ratio"))
+                ffprobe_stream.sample_aspect_ratio = obj.get_string_member ("sample_aspect_ratio");
+
+            if (obj.has_member ("display_aspect_ratio"))
+                ffprobe_stream.display_aspect_ratio = obj.get_string_member ("display_aspect_ratio");
+
+            if (obj.has_member ("pix_fmt"))
+                ffprobe_stream.pix_fmt = obj.get_string_member ("pix_fmt");
+
+            if (obj.has_member ("level"))
+                ffprobe_stream.level = (int) obj.get_int_member ("level");
+
+            if (obj.has_member ("chroma_location"))
+                ffprobe_stream.chroma_location = obj.get_string_member ("chroma_location");
+
+            if (obj.has_member ("refs"))
+                ffprobe_stream.refs = (int) obj.get_int_member ("refs");
+
+            if (obj.has_member ("is_avc"))
+                ffprobe_stream.is_avc = obj.get_string_member ("is_avc");
+
+            if (obj.has_member ("nal_length_size"))
+                ffprobe_stream.nal_length_size = obj.get_string_member ("nal_length_size");
+
+            //if (obj.has_member ("r_frame_rate"))
+                //ffprobe_stream.r_frame_rate = obj.get_string_member ("r_frame_rate");
+
+            //if (obj.has_member ("avg_frame_rate"))
+                //ffprobe_stream.avg_frame_rate = obj.get_string_member ("avg_frame_rate");
+            
+            //if (obj.has_member ("time_base"))
+                //ffprobe_stream.time_base = obj.get_string_member ("time_base");
+            
+            if (obj.has_member ("start_pts"))
+                ffprobe_stream.start_pts = (long) obj.get_int_member ("start_pts");
+
+            if (obj.has_member ("start_time"))
+                ffprobe_stream.start_time = long.parse (obj.get_string_member ("start_time"));
+
+            if (obj.has_member ("duration_ts"))
+                ffprobe_stream.duration_ts = (long) obj.get_int_member ("duration_ts");
+
+            if (obj.has_member ("duration"))
+                ffprobe_stream.duration = long.parse (obj.get_string_member ("duration"));
+
+            if (obj.has_member ("bit_rate"))
+                ffprobe_stream.bit_rate = long.parse (obj.get_string_member ("bit_rate"));
+
+            if (obj.has_member ("bits_per_raw_sample"))
+                ffprobe_stream.bits_per_raw_sample = int.parse (obj.get_string_member ("bits_per_raw_sample"));
+
+            if (obj.has_member ("nb_frames"))
+                ffprobe_stream.nb_frames = long.parse (obj.get_string_member ("nb_frames"));
+
+            //if (obj.has_member ("disposition"))
+                //ffprobe_stream.disposition  = this.process_disposition (obj.get_member ("disposition"));
+
+            if (obj.has_member ("tags"))
+                ffprobe_stream.tags = this.process_streams_tags (obj.get_member ("tags"));
 
             //this.streams.set(ffprobe_stream);
         }
        
-        private void process_disposition (Json.Node node) throws Error {
+        /*private void process_disposition (Json.Node node) throws Error {
             this.validate_node_type_object (node);
 
             Json.Object obj = node.get_object ();
 
-            string s_default        = obj.get_string_member ("default");
+            string default          = obj.get_string_member ("default");
             string dub              = obj.get_string_member ("dub");
             string original         = obj.get_string_member ("original");
             string comment          = obj.get_string_member ("comment");
@@ -177,7 +227,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             string visual_impaired  = obj.get_string_member ("visual_impaired");
             string clean_effects    = obj.get_string_member ("clean_effects");
             string attached_pic     = obj.get_string_member ("attached_pic");
-        }
+        }*/
 
         private Gee.HashMap<string, string> process_streams_tags (Json.Node node) throws Error {
             this.validate_node_type_object (node);
@@ -185,9 +235,12 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             Json.Object obj = node.get_object ();
 
             Gee.HashMap<string, string> tags = new Gee.HashMap<string, string> ();
-            tags.set ("creation_time", obj.get_string_member ("creation_time"));
-            tags.set ("language", obj.get_string_member ("language"));
-            tags.set ("handler_name", obj.get_string_member ("handler_name"));
+
+            if (obj.has_member ("language"))
+                tags.set ("language", obj.get_string_member ("language"));
+
+            if (obj.has_member ("handler_name"))
+                tags.set ("handler_name", obj.get_string_member ("handler_name"));
 
             return tags;
         }
@@ -196,23 +249,43 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             this.validate_node_type_array (node);
         }
 
-        private void process_format (Json.Node node) throws Error {
+        private void process_format (Json.Node node) throws Error {               
             this.validate_node_type_object (node);
 
             Json.Object obj = node.get_object ();
 
-            this.format.filename         = obj.get_string_member ("filename");
-            this.format.nb_streams       = int.parse (obj.get_string_member ("nb_streams"));
-            this.format.nb_programs      = int.parse (obj.get_string_member ("nb_programs"));
-            this.format.format_name      = obj.get_string_member ("format_name");
-            this.format.format_long_name = obj.get_string_member ("format_long_name");
-            this.format.start_time       = int.parse (obj.get_string_member ("start_time"));
-            this.format.duration         = int.parse (obj.get_string_member ("duration"));
-            this.format.size             = obj.get_string_member ("size").to_int ();
-            this.format.bit_rate         = int.parse (obj.get_string_member ("bit_rate"));
-            this.format.probe_score      = int.parse (obj.get_string_member ("probe_score"));
+            if (obj.has_member ("filename"))
+                this.format.filename = obj.get_string_member ("filename");
+
+            if (obj.has_member ("nb_streams"))
+                this.format.nb_streams = (int) obj.get_int_member ("nb_streams");
+
+            if (obj.has_member ("nb_programs"))
+                this.format.nb_programs = (int) obj.get_int_member ("nb_programs");
+
+            if (obj.has_member ("format_name"))
+                this.format.format_name = obj.get_string_member ("format_name");
+
+            if (obj.has_member ("format_long_name"))
+                this.format.format_long_name = obj.get_string_member ("format_long_name");
+
+            if (obj.has_member ("start_time"))
+                this.format.start_time = int.parse (obj.get_string_member ("start_time"));
+
+            if (obj.has_member ("duration"))
+                this.format.duration = int.parse (obj.get_string_member ("duration"));
+
+            if (obj.has_member ("size"))
+                this.format.size = int.parse (obj.get_string_member ("size"));
+
+            if (obj.has_member ("bit_rate"))
+                this.format.bit_rate = int.parse (obj.get_string_member ("bit_rate"));
+
+            if (obj.has_member ("probe_score"))
+                this.format.probe_score = (int) obj.get_int_member ("probe_score");
             
-            this.process_format_tags (obj.get_member ("tags"));
+            if (obj.has_member ("tags"))
+                this.process_format_tags (obj.get_member ("tags"));
         }
 
         private void process_format_tags (Json.Node node) throws Error {
@@ -220,17 +293,24 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
             Json.Object obj = node.get_object ();
 
-            this.format.tags.set ("major_brand", obj.get_string_member ("major_brand"));
-            this.format.tags.set ("minor_version", obj.get_string_member ("minor_version"));
-            this.format.tags.set ("compatible_brands", obj.get_string_member ("compatible_brands"));
-            this.format.tags.set ("encoder", obj.get_string_member ("encoder"));
+            if (obj.has_member ("major_brand"))
+                this.format.tags.set ("major_brand", obj.get_string_member ("major_brand"));
+
+            if (obj.has_member ("minor_version"))
+                this.format.tags.set ("minor_version", obj.get_string_member ("minor_version"));
+
+            if (obj.has_member ("compatible_brands"))
+                this.format.tags.set ("compatible_brands", obj.get_string_member ("compatible_brands"));
+
+            if (obj.has_member ("encoder"))
+                this.format.tags.set ("encoder", obj.get_string_member ("encoder"));
         }
 
-        private void validate_node_type_value (Json.Node node) throws Error {
+        /*private void validate_node_type_value (Json.Node node) throws Error {
             if (node.get_node_type () != Json.NodeType.VALUE) {
                 throw new MyError.INVALID_FORMAT ("Unexpected element type %s", node.type_name ());
             }
-        }
+        }*/
 
         private void validate_node_type_object (Json.Node node) throws Error {
             if (node.get_node_type () != Json.NodeType.OBJECT) {
@@ -244,20 +324,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             }
         }
 
-        public FFprobeError get_error () {
-            return this.error;
-        }
-
         public bool has_error () {
             return this.error != null;
-        }
-
-        public FFprobeFormat get_format () {
-            return this.format;
-        }
-
-        public Gee.HashSet<FFprobeStream> get_streams () {
-            return this.streams;
         }
     }
 }

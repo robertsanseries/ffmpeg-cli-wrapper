@@ -68,6 +68,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
                 mainloop.run();*/
 
                 FFprobe ffprobe = new FFprobe ("/home/robertsanseries/Documentos/doc.mp4");
+                //stdout.printf(ffprobe.format.filename);
             } catch (Error e) {
                 GLib.critical (e.message);
             }
