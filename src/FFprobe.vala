@@ -27,19 +27,17 @@ using com.github.robertsanseries.FFmpegCliWrapper.Probe;
 namespace com.github.robertsanseries.FFmpegCliWrapper {
 
     public errordomain MyError {
-            INVALID_FORMAT
-        }
+        INVALID_FORMAT
+    }
 
     public class FFprobe {
 
         /* Fields */
-        public FFprobeError error                 { get; set; }
         public FFprobeFormat format               { get; set; }
         public Gee.HashSet<FFprobeStream> streams { get; set; }
        
         /* Constructor */
         public FFprobe (string input) {
-
             try {
                 GLib.message ("init class FFprobe");
 
@@ -48,14 +46,13 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
                 int exit_status;
 
                 Process.spawn_command_line_sync (
-                    "ffprobe -hide_banner -show_format -show_error -show_streams -show_programs -show_chapters -show_private_data -print_format json ".concat(input), 
+                    "ffprobe -show_format -show_streams -v quiet -print_format json ".concat(input), 
                     out standard_output, out standard_error, out exit_status
                 );
 
                 if (exit_status != 0)
                     throw new IOException.MESSAGE (standard_error);
 
-                this.error   = new FFprobeError ();
                 this.format  = new FFprobeFormat ();
                 this.streams = new Gee.HashSet<FFprobeStream> ();
 
@@ -75,29 +72,15 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
             Json.Object obj    = node.get_object ();
 
-            if (obj.has_member ("programs")) {
-                Json.Node programs = obj.get_member ("programs");
-                this.process_programs (programs);
-            }
-
             if (obj.has_member ("streams")) {
                 Json.Node streams = obj.get_member ("streams");
                 this.process_streams (streams);
-            }
-
-            if (obj.has_member ("chapters")) {
-                Json.Node chapters = obj.get_member ("chapters");
-                this.process_chapters (chapters);
             }
 
             if (obj.has_member ("format")) {
                 Json.Node format = obj.get_member ("format");
                 this.process_format (format);
             }
-        }
-
-        private void process_programs (Json.Node node) throws Error {
-            this.validate_node_type_array (node);
         }
 
         private void process_streams (Json.Node node) throws Error {
@@ -112,7 +95,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             }
         }
 
-        public void process_streams_array (Json.Node node, uint number) throws Error {
+        private void process_streams_array (Json.Node node, uint number) throws Error {
             this.validate_node_type_object (node);
 
             Json.Object obj = node.get_object ();
@@ -280,11 +263,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             return tags;
         }
 
-        private void process_chapters (Json.Node node) throws Error {
-            this.validate_node_type_array (node);
-        }
-
-        private void process_format (Json.Node node) throws Error {               
+        private void process_format (Json.Node node) throws Error {
             this.validate_node_type_object (node);
 
             Json.Object obj = node.get_object ();
@@ -337,8 +316,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             if (obj.has_member ("compatible_brands"))
                 this.format.tags.set ("compatible_brands", obj.get_string_member ("compatible_brands"));
 
-            if (obj.has_member ("encoder"))
-                this.format.tags.set ("encoder", obj.get_string_member ("encoder"));
+            if (obj.has_member ("title"))
+                this.format.tags.set ("title", obj.get_string_member ("title"));                
         }
 
         private void validate_node_type_object (Json.Node node) throws Error {
@@ -349,10 +328,6 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         private void validate_node_type_array (Json.Node node) throws Error {
             if (node.get_node_type () != Json.NodeType.ARRAY)
                 throw new MyError.INVALID_FORMAT ("Unexpected element type %s", node.type_name ());
-        }
-
-        public bool has_error () {
-            return this.error != null;
         }
     }
 }

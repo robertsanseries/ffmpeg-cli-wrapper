@@ -83,7 +83,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             }
 
             if(StringUtil.is_not_empty (format)) {
-                set_format (format);
+                this.set_format (format);
             }
 
             return this;

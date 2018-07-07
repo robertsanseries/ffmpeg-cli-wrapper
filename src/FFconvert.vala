@@ -56,7 +56,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         public async GLib.Subprocess convert () throws GLib.Error {
             GLib.message ("convert");
 
-            if(this.ffmpeg == null) {
+            if (this.ffmpeg == null) {
                 throw new NullReferenceException.MESSAGE ("Command value is null");
             }
             
