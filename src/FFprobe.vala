@@ -75,15 +75,26 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             this.validate_node_type_object (node);
 
             Json.Object obj    = node.get_object ();
-            Json.Node programs = obj.get_member ("programs");
-            Json.Node streams  = obj.get_member ("streams");
-            Json.Node chapters = obj.get_member ("chapters");
-            Json.Node format   = obj.get_member ("format");
 
-            this.process_programs (programs);
-            this.process_streams (streams);
-            this.process_chapters (chapters);
-            this.process_format (format);
+            if (obj.has_member ("programs")) {
+                Json.Node programs = obj.get_member ("programs");
+                this.process_programs (programs);
+            }
+
+            if (obj.has_member ("streams")) {
+                Json.Node streams = obj.get_member ("streams");
+                this.process_streams (streams);
+            }
+
+            if (obj.has_member ("chapters")) {
+                Json.Node chapters = obj.get_member ("chapters");
+                this.process_chapters (chapters);
+            }
+
+            if (obj.has_member ("format")) {
+                Json.Node format = obj.get_member ("format");
+                this.process_format (format);
+            }
         }
 
         private void process_programs (Json.Node node) throws Error {
@@ -305,12 +316,6 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             if (obj.has_member ("encoder"))
                 this.format.tags.set ("encoder", obj.get_string_member ("encoder"));
         }
-
-        /*private void validate_node_type_value (Json.Node node) throws Error {
-            if (node.get_node_type () != Json.NodeType.VALUE) {
-                throw new MyError.INVALID_FORMAT ("Unexpected element type %s", node.type_name ());
-            }
-        }*/
 
         private void validate_node_type_object (Json.Node node) throws Error {
             if (node.get_node_type () != Json.NodeType.OBJECT) {
