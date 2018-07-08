@@ -44,7 +44,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Utils {
                 
                 AppInfo.launch_default_for_uri (directory.get_uri(), null);
             } catch (Error e) {
-                GLib.critical (e.message);
+                GLib.error (e.message);
             }
         }
 
@@ -78,9 +78,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Utils {
                     var data_stream = new DataOutputStream (file_stream);
                     data_stream.put_string (text);
                 }
-
             } catch (Error e) {
-                critical (e.message);
+                GLib.error (e.message);
             }
         }
 
@@ -102,7 +101,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper.Utils {
                 }
 
             } catch (Error e) {
-                critical (e.message);
+                GLib.error (e.message);
             }
         }
 

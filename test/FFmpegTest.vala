@@ -21,7 +21,7 @@ using com.github.robertsanseries.FFmpegCliWrapper;
 
 namespace com.github.robertsanseries.FFmpegCliWrapperTest {
 
-	public class FFmpegTest {
+    public class FFmpegTest {
 
         public static void main (string [] args) {
             try {
