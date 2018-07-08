@@ -66,19 +66,19 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             var parser = new Json.Parser();
             parser.load_from_data (json);
 
-            Json.Node node = parser.get_root();
+            unowned Json.Node node = parser.get_root();
 
             this.validate_node_type_object (node);
 
-            Json.Object obj    = node.get_object ();
+            unowned Json.Object obj = node.get_object ();
 
             if (obj.has_member ("streams")) {
-                Json.Node streams = obj.get_member ("streams");
+                unowned Json.Node streams = obj.get_member ("streams");
                 this.process_streams (streams);
             }
 
             if (obj.has_member ("format")) {
-                Json.Node format = obj.get_member ("format");
+                unowned Json.Node format = obj.get_member ("format");
                 this.process_format (format);
             }
         }
@@ -86,10 +86,10 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         private void process_streams (Json.Node node) throws Error {
             this.validate_node_type_array (node);
 
-            Json.Array array = node.get_array ();
+            unowned Json.Array array = node.get_array ();
             int i = 1;
 
-            foreach (Json.Node item in array.get_elements ()) {
+            foreach (unowned Json.Node item in array.get_elements ()) {
                 this.process_streams_array (item, i);
                 i++;
             }
@@ -98,7 +98,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         private void process_streams_array (Json.Node node, uint number) throws Error {
             this.validate_node_type_object (node);
 
-            Json.Object obj = node.get_object ();
+            unowned Json.Object obj = node.get_object ();
 
             FFprobeStream ffprobe_stream = new FFprobeStream();
 
@@ -207,7 +207,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         private FFprobeDisposition process_disposition (Json.Node node) throws Error {
             this.validate_node_type_object (node);
 
-            Json.Object obj = node.get_object ();
+            unowned Json.Object obj = node.get_object ();
 
             FFprobeDisposition ffprobe_disposition = new FFprobeDisposition ();
 
@@ -250,7 +250,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         private Gee.HashMap<string, string> process_streams_tags (Json.Node node) throws Error {
             this.validate_node_type_object (node);
 
-            Json.Object obj = node.get_object ();
+            unowned Json.Object obj = node.get_object ();
 
             Gee.HashMap<string, string> tags = new Gee.HashMap<string, string> ();
 
@@ -266,7 +266,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         private void process_format (Json.Node node) throws Error {
             this.validate_node_type_object (node);
 
-            Json.Object obj = node.get_object ();
+            unowned Json.Object obj = node.get_object ();
 
             if (obj.has_member ("filename"))
                 this.format.filename = obj.get_string_member ("filename");
@@ -305,7 +305,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         private void process_format_tags (Json.Node node) throws Error {
             this.validate_node_type_object (node);
 
-            Json.Object obj = node.get_object ();
+            unowned Json.Object obj = node.get_object ();
 
             if (obj.has_member ("major_brand"))
                 this.format.tags.set ("major_brand", obj.get_string_member ("major_brand"));
