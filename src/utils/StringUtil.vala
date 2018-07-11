@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USACiano
 */
 
-namespace com.github.robertsanseries.FFmpegCliWrapper.Utils {
+namespace com.github.robertsanseries.FFmpegWrapper.Utils {
 
     /**
      * The {@code StringUtil} class defines certain words related to

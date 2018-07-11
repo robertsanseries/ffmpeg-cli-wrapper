@@ -21,10 +21,10 @@
  * SOFTWARE.
  */
 
-using com.github.robertsanseries.FFmpegCliWrapper.Exceptions;
-using com.github.robertsanseries.FFmpegCliWrapper.Utils;
+using com.github.robertsanseries.FFmpegWrapper.Exceptions;
+using com.github.robertsanseries.FFmpegWrapper.Utils;
 
-namespace com.github.robertsanseries.FFmpegCliWrapper {
+namespace com.github.robertsanseries.FFmpegWrapper {
 
     public class FFmpeg {
 

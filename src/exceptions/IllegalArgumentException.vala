@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-namespace com.github.robertsanseries.FFmpegCliWrapper.Exceptions {
+namespace com.github.robertsanseries.FFmpegWrapper.Exceptions {
 
     /**
      * 
