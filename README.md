@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>FFmpeg Wrapper</h1>
+    <h1>FFmpeg Cli Wrapper - Vala</h1>
     <h3 align="center">Vala wrapper around the FFmpeg command line tool</h3>
     <p align="center">
         <img src="https://api.travis-ci.org/robertsanseries/ffmpeg-cli-wrapper.svg?branch=master">
@@ -17,7 +17,7 @@ This library requires a working FFMpeg install. You will need both FFMpeg and FF
 
 ### Installation
 
-You can download FFmpeg Wrapper via Github [Here](https://github.com/robertsanseries/ffmpeg-cli-wrapper/archive/master.zip)
+You can download FFmpeg Cli Wrapper via Github [Here](https://github.com/robertsanseries/ffmpeg-cli-wrapper/archive/master.zip)
 
 or If you want install via [Vanat](https://vanat.github.io). *recommended
 
