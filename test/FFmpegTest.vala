@@ -17,9 +17,9 @@
 * Boston, MA 02110-1301 USA
 */
 
-using com.github.robertsanseries.FFmpegWrapper;
+using com.github.robertsanseries.FFmpegCliWrapper;
 
-namespace com.github.robertsanseries.FFmpegWrapperTest {
+namespace com.github.robertsanseries.FFmpegCliWrapperTest {
 
     public class FFmpegTest {
 

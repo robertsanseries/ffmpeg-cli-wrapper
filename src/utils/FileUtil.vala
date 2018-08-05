@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 
-namespace com.github.robertsanseries.FFmpegWrapper.Utils {
+namespace com.github.robertsanseries.FFmpegCliWrapper.Utils {
 
     /**
      * The {@code FileUtil} class related to files handling.

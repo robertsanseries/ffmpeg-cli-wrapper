@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-namespace com.github.robertsanseries.FFmpegWrapper.Probe {
+namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
 
     public class FFprobeDisposition {
 

@@ -21,10 +21,10 @@
  * SOFTWARE.
  */
 
-using com.github.robertsanseries.FFmpegWrapper.Exceptions;
-using com.github.robertsanseries.FFmpegWrapper.Utils;
+using com.github.robertsanseries.FFmpegCliWrapper.Exceptions;
+using com.github.robertsanseries.FFmpegCliWrapper.Utils;
 
-namespace com.github.robertsanseries.FFmpegWrapper {
+namespace com.github.robertsanseries.FFmpegCliWrapper {
 
     public class FFconvert {
 

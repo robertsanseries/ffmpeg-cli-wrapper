@@ -21,10 +21,10 @@
  * SOFTWARE.
  */
 
-using com.github.robertsanseries.FFmpegWrapper.Exceptions;
-using com.github.robertsanseries.FFmpegWrapper.Probe;
+using com.github.robertsanseries.FFmpegCliWrapper.Exceptions;
+using com.github.robertsanseries.FFmpegCliWrapper.Probe;
 
-namespace com.github.robertsanseries.FFmpegWrapper {
+namespace com.github.robertsanseries.FFmpegCliWrapper {
 
     public errordomain MyError {
         INVALID_FORMAT
