@@ -21,24 +21,24 @@ using com.github.robertsanseries.FFmpegCliWrapper;
 
 namespace com.github.robertsanseries.FFmpegCliWrapperTest {
 
-	public class FFmpegTest {
+    public class FFmpegTest {
 
         public static void main (string [] args) {
             try {
-                FFmpeg ffmpeg = new FFmpeg (
+                /*FFmpeg ffmpeg = new FFmpeg (
                     "/home/Vídeos/MarcusMiller.mkv",
                     "/home/Vídeos/MarcusMiller.avi",
                     true,
                     "avi"
                 );
-                GLib.message (ffmpeg.get_cmd ());
+                GLib.message (ffmpeg.get_command ());
 
                 FFmpeg ffmpeg1 = new FFmpeg ();
                 ffmpeg1.set_input ("/home/Vídeos/MarcusMiller.mkv");
                 ffmpeg1.set_output ("/home/Vídeos/MarcusMiller.avi");
                 ffmpeg1.set_format ("avi");
                 ffmpeg1.set_override_output (true);
-                GLib.message (ffmpeg1.get_cmd ());
+                GLib.message (ffmpeg1.get_command ());*/
 
                 FFmpeg ffmpeg2 = new FFmpeg ()
                 .set_input ("/home/robertsanseries/Documentos/doc.mp4")
@@ -46,20 +46,29 @@ namespace com.github.robertsanseries.FFmpegCliWrapperTest {
                 .set_format ("avi")
                 .set_override_output (true);
 
+                GLib.message (ffmpeg2.get_command ());
+
                 FFconvert ffconvert = new FFconvert (ffmpeg2);
+                GLib.MainLoop mainloop = new GLib.MainLoop();
                 ffconvert.convert.begin ((obj, async_res) => {
                     try {
                         GLib.Subprocess subprocess = ffconvert.convert.end (async_res);
-                    
+
                         if (subprocess != null && subprocess.wait_check ()) {
                             GLib.message ("Success");
                         } else {
-                            GLib.warning ("Error");
+                            GLib.message ("Error");
                         }
                     } catch (Error e) {
                         GLib.critical (e.message);        
                     }
+
+                     mainloop.quit();
                 });
+                mainloop.run();
+
+                FFprobe ffprobe = ffmpeg2.get_ffprobe ();
+                stdout.printf(ffprobe.format.filename);
             } catch (Error e) {
                 GLib.critical (e.message);
             }

@@ -28,15 +28,15 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
     public class FFmpeg {
 
-        /* Fields */
+        /* Propriedade */
         private const string FFMPEG = "ffmpeg";
-        private FFcommon ffcommon = null;
         private string input;
         private string output;
         private string acodec;
         private string vcodec;
         private string format;
         private bool override_output = false;
+        private FFprobe ffprobe;
         
 
         /* Constructor */
@@ -48,15 +48,15 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             }
 
             if (StringUtil.is_not_empty (output)) {
-                set_output (output);
+                this.set_output (output);
             }
 
             if (override_output) {
-                set_override_output (override_output);
+                this.set_override_output (override_output);
             }
 
             if (StringUtil.is_not_empty (format)) {
-                set_format (format);
+                this.set_format (format);
             }
         }
 
@@ -64,7 +64,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             GLib.message ("setting the input value");
             
             if (StringUtil.is_not_empty (input)) {
-                this.input = input;                
+                this.input = input;
+                this.ffprobe = new FFprobe (this.input);
             } else {
                 throw new IllegalArgumentException.MESSAGE ("Input value is null");
             }
@@ -82,7 +83,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             }
 
             if(StringUtil.is_not_empty (format)) {
-                set_format (format);
+                this.set_format (format);
             }
 
             return this;
@@ -134,13 +135,11 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
 
         public string[] get () throws Error {
             GenericArray<string> array_str = command_mount ();
-            this.build ();
-
             GLib.message ("returning the command that will be executed");
             return array_str.data;
         }
 
-        public string get_cmd () throws Error {
+        public string get_command () throws Error {
             GenericArray<string> array_str = command_mount ();
             string command = StringUtil.EMPTY;
             
@@ -148,25 +147,9 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
                 command += str + StringUtil.SPACE;
             });
 
-            this.build ();
-
             GLib.message ("returning the command that will be executed");
             return command;
         }
-
-       // public string convert () throws Error {
-            /*GenericArray<string> array = command_mount ();
-            this.build ();
-
-            FFconvert.convert_async.begin (array.data, (obj, async_res) => {
-                Subprocess subprocess = FFconvert.convert_async.end (async_res);
-                if (subprocess != null && subprocess.wait_check ()) {
-                    return true;
-                }
-            });*/
-
-            //return "false";
-       // }
 
         private GenericArray<string> command_mount () throws Error {
             GLib.message ("setting up the command that will be executed");
@@ -179,6 +162,8 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
                 array_str.add ("-y");    
             }
             
+            array_str.add ("-hide_banner");
+
             array_str.add ("-i");
             
             if (StringUtil.is_not_empty (this.input)) {
@@ -197,15 +182,7 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
             }
 
             return array_str;
-        }
-
-        private FFcommon build () {
-            if (this.ffcommon == null) {
-                this.ffcommon = new FFcommon (this);
-            }
-            
-            return this.ffcommon;
-        }        
+        }      
 
         public string get_input () {
             return this.input;
@@ -229,6 +206,10 @@ namespace com.github.robertsanseries.FFmpegCliWrapper {
         
         public bool get_override_output () {
             return this.override_output;
+        }
+
+        public FFprobe get_ffprobe () {
+            return this.ffprobe;
         }
     }
 }

@@ -21,30 +21,27 @@
  * SOFTWARE.
  */
 
-using com.github.robertsanseries.FFmpegCliWrapper.Exceptions;
+namespace com.github.robertsanseries.FFmpegCliWrapper.Probe {
 
-namespace com.github.robertsanseries.FFmpegCliWrapper {
-
-    public class FFcommon {
-
-        /* Fields */
-        protected string input;
-        protected string output;
-        protected string acodec;
-        protected string vcodec;
-        protected string format;
-        protected bool override_output;
+    public class FFprobeFormat {
+    
+        /* Propriedade */
+        public string filename                  { get; set; }
+        public int nb_streams                   { get; set; }
+        public int nb_programs                  { get; set; }
+        public string format_name               { get; set; }
+        public string format_long_name          { get; set; }
+        public double start_time                { get; set; }
+        public double duration                  { get; set; }
+        public long size                        { get; set; }
+        public long bit_rate                    { get; set; }
+        public int probe_score                  { get; set; }
+        public Gee.HashMap<string, string> tags { get; set; }
 
         /* Constructor */
-        public FFcommon (FFmpeg ffmpeg) {
-            GLib.message ("init class FFcommon");
-
-            this.input = ffmpeg.get_input ();
-        	this.output = ffmpeg.get_output ();
-        	this.acodec = ffmpeg.get_acodec ();
-        	this.vcodec = ffmpeg.get_vcodec ();
-        	this.format = ffmpeg.get_format ();
-        	this.override_output = ffmpeg.get_override_output ();
+        public FFprobeFormat () {
+            GLib.message ("init class FFprobeFormat");
+            this.tags = new Gee.HashMap<string, string> ();
         }
     }
 }

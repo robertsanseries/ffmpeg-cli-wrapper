@@ -23,7 +23,7 @@ or If you want install via [Vanat](https://vanat.github.io). *recommended
 
 
 ```bash
-$ vanat require robertsanseries/ffmpeg-cli-wrapper
+$ vanat require robertsanseries/ffmpeg-wrapper
 ```
 
 #### Requirements
@@ -34,6 +34,43 @@ $ vanat require robertsanseries/ffmpeg-cli-wrapper
 ### Documentation
 
 You can find the complete documentation on our [Wiki](""). Or parse the source code.
+
+### Basic exemple
+
+```vala
+FFmpeg ffmpeg2 = new FFmpeg ()
+.set_input ("/home/robertsanseries/Documentos/doc.mp4")
+.set_output ("/home/robertsanseries/Documentos/doc.avi")
+.set_format ("avi")
+.set_override_output (true);
+
+// output: ffmpeg -y -hide_banner -i /home/robertsanseries/Documentos/doc.mp4 -f avi /home/robertsanseries/Documentos/doc.avi
+GLib.message (ffmpeg2.get_command ());
+
+FFconvert ffconvert = new FFconvert (ffmpeg2);
+GLib.MainLoop mainloop = new GLib.MainLoop();
+ffconvert.convert.begin ((obj, async_res) => {
+    try {
+        GLib.Subprocess subprocess = ffconvert.convert.end (async_res);
+
+        if (subprocess != null && subprocess.wait_check ()) {
+            GLib.message ("Success");
+        } else {
+            GLib.message ("Error");
+        }
+    } catch (Error e) {
+        GLib.critical (e.message);        
+    }
+
+     mainloop.quit();
+});
+mainloop.run();
+
+FFprobe ffprobe = ffmpeg2.get_ffprobe ();
+
+// output: /home/robertsanseries/Documentos/doc.mp4
+stdout.printf(ffprobe.format.filename);
+```
 
 #### Basic Usage
 
@@ -125,13 +162,12 @@ stdout.printf (ffmpeg.get_cmd ());
 $ ffmpeg -y -i /home/Vídeos/MarcusMiller.mkv -f avi /home/Vídeos/MarcusMiller.avi
 ```
 
-
 ### Test
 
 #### compile
 
 ```sh
-$ valac --pkg gio-2.0 src/FFconvert.vala src/FFmpeg.vala src/FFcommon.vala src/exceptions/CodecNotEnabledException.vala src/exceptions/FileOrDirectoryNotFoundException.vala src/exceptions/NullReferenceException.vala src/utils/StringUtil.vala test/FFmpegTest.vala src/exceptions/IllegalArgumentException.vala src/exceptions/IOException.vala -o ffmpeg-cli-wrapper
+$ valac --pkg json-glib-1.0 --pkg gio-2.0 --pkg gee-0.8 src/FFconvert.vala src/FFmpeg.vala src/FFprobe.vala src/exceptions/CodecNotEnabledException.vala src/exceptions/FileOrDirectoryNotFoundException.vala src/exceptions/NullReferenceException.vala src/utils/StringUtil.vala test/FFmpegTest.vala src/exceptions/IllegalArgumentException.vala src/exceptions/IOException.vala src/probe/FFprobeDisposition.vala src/probe/FFprobeFormat.vala src/probe/FFprobeStream.vala -o ffmpeg-cli-wrapper
 ```
 
 #### execute
