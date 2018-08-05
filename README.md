@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>FFmpeg Cli Wrapper - Vala</h1>
+    <h1>FFmpeg Cli Wrapper</h1>
     <h3 align="center">Vala wrapper around the FFmpeg command line tool</h3>
     <p align="center">
         <img src="https://api.travis-ci.org/robertsanseries/ffmpeg-cli-wrapper.svg?branch=master">
