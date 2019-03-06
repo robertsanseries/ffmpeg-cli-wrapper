@@ -3,5 +3,33 @@
     "description": "Vala wrapper around the FFmpeg command line tool",
     "version": "1.0.0",
     "author": "Robert San",
-    "require": {}
+    "keywords": [
+        "library",
+        "ffmpeg",
+        "ffmpeg-cli",
+        "ffmpeg-cli-wrapper",
+        "ffmpeg-vala",
+    ],
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "../src/exceptions/CodecNotEnabledException.vala",
+            "../src/exceptions/FileOrDirectoryNotFoundException.vala",
+            "../src/exceptions/IllegalArgumentException.vala",
+            "../src/exceptions/IOException.vala",
+            "../src/exceptions/NullReferenceException.vala",
+            "../src/probe/FFprobeDisposition.vala",
+            "../src/probe/FFprobeFormat.vala",
+            "../src/probe/FFprobeStream.vala",
+            "../src/utils/StringUtil.vala",
+            "../src/FFconvert.vala",
+            "../src/FFmpeg.vala",
+            "../src/FFprobe.vala"
+        ]
+    },
+    "autoload-dev": {
+        "files": [
+            "../tests/FFmpegTest.vala",
+        ]
+    },
 }
